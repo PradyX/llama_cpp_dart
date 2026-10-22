@@ -30,7 +30,7 @@ ffigen:
       - 'src/llama.cpp/tools/mtmd/mtmd.h'
       - 'src/llama.cpp/tools/mtmd/mtmd-helper.h'
   compiler-opts:
-    - '-resource-dir=/Library/Developer/CommandLineTools/usr/lib/clang/21'
+    - '-resource-dir=/Library/Developer/CommandLineTools/usr/lib/clang/16.0.0'
     - '-Isrc/llama.cpp/ggml/include'
     - '-Isrc/llama.cpp/include'
     - '-Isrc/llama.cpp/tools/mtmd'

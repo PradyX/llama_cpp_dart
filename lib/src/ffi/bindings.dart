@@ -23,12 +23,12 @@ class LlamaBindings {
 
   int __snprintf_chk(
     ffi.Pointer<ffi.Char> arg0,
-    int __maxlen,
+    int arg1,
     int arg2,
     int arg3,
     ffi.Pointer<ffi.Char> arg4,
   ) {
-    return ___snprintf_chk(arg0, __maxlen, arg2, arg3, arg4);
+    return ___snprintf_chk(arg0, arg1, arg2, arg3, arg4);
   }
 
   late final ___snprintf_chkPtr =
@@ -143,13 +143,13 @@ class LlamaBindings {
 
   int __vsnprintf_chk(
     ffi.Pointer<ffi.Char> arg0,
-    int __maxlen,
+    int arg1,
     int arg2,
     int arg3,
     ffi.Pointer<ffi.Char> arg4,
     va_list arg5,
   ) {
-    return ___vsnprintf_chk(arg0, __maxlen, arg2, arg3, arg4, arg5);
+    return ___vsnprintf_chk(arg0, arg1, arg2, arg3, arg4, arg5);
   }
 
   late final ___vsnprintf_chkPtr =
@@ -340,9 +340,9 @@ class LlamaBindings {
 
   ffi.Pointer<ffi.Char> fgetln(
     ffi.Pointer<FILE> arg0,
-    ffi.Pointer<ffi.Size> __len,
+    ffi.Pointer<ffi.Size> arg1,
   ) {
-    return _fgetln(arg0, __len);
+    return _fgetln(arg0, arg1);
   }
 
   late final _fgetlnPtr =
@@ -374,10 +374,10 @@ class LlamaBindings {
 
   ffi.Pointer<ffi.Char> fgets(
     ffi.Pointer<ffi.Char> arg0,
-    int __size,
+    int arg1,
     ffi.Pointer<FILE> arg2,
   ) {
-    return _fgets(arg0, __size, arg2);
+    return _fgets(arg0, arg1, arg2);
   }
 
   late final _fgetsPtr =
@@ -538,6 +538,31 @@ class LlamaBindings {
       >('fputs');
   late final _fputs = _fputsPtr
       .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<FILE>)>();
+
+  int fread(
+    ffi.Pointer<ffi.Void> __ptr,
+    int __size,
+    int __nitems,
+    ffi.Pointer<FILE> __stream,
+  ) {
+    return _fread(__ptr, __size, __nitems, __stream);
+  }
+
+  late final _freadPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.UnsignedLong Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Size,
+            ffi.Size,
+            ffi.Pointer<FILE>,
+          )
+        >
+      >('fread');
+  late final _fread = _freadPtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Void>, int, int, ffi.Pointer<FILE>)
+      >();
 
   ffi.Pointer<FILE> freopen(
     ffi.Pointer<ffi.Char> arg0,
@@ -747,6 +772,31 @@ class LlamaBindings {
             ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Void>)>
           >,
         )
+      >();
+
+  int fwrite(
+    ffi.Pointer<ffi.Void> __ptr,
+    int __size,
+    int __nitems,
+    ffi.Pointer<FILE> __stream,
+  ) {
+    return _fwrite(__ptr, __size, __nitems, __stream);
+  }
+
+  late final _fwritePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.UnsignedLong Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Size,
+            ffi.Size,
+            ffi.Pointer<FILE>,
+          )
+        >
+      >('fwrite');
+  late final _fwrite = _fwritePtr
+      .asFunction<
+        int Function(ffi.Pointer<ffi.Void>, int, int, ffi.Pointer<FILE>)
       >();
 
   int getc(ffi.Pointer<FILE> arg0) {
@@ -1690,6 +1740,34 @@ class LlamaBindings {
             ggml_backend_buffer_t Function(ggml_backend_buffer_type_t, int)
           >();
 
+  ggml_backend_buffer_t ggml_backend_buft_alloc_buffer_n(
+    ggml_backend_buffer_type_t buft,
+    ffi.Pointer<ffi.Pointer<ggml_tensor>> tensors,
+    int n_tensors,
+  ) {
+    return _ggml_backend_buft_alloc_buffer_n(buft, tensors, n_tensors);
+  }
+
+  late final _ggml_backend_buft_alloc_buffer_nPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ggml_backend_buffer_t Function(
+            ggml_backend_buffer_type_t,
+            ffi.Pointer<ffi.Pointer<ggml_tensor>>,
+            ffi.Int,
+          )
+        >
+      >('ggml_backend_buft_alloc_buffer_n');
+  late final _ggml_backend_buft_alloc_buffer_n =
+      _ggml_backend_buft_alloc_buffer_nPtr
+          .asFunction<
+            ggml_backend_buffer_t Function(
+              ggml_backend_buffer_type_t,
+              ffi.Pointer<ffi.Pointer<ggml_tensor>>,
+              int,
+            )
+          >();
+
   int ggml_backend_buft_get_alignment(ggml_backend_buffer_type_t buft) {
     return _ggml_backend_buft_get_alignment(buft);
   }
@@ -1722,6 +1800,34 @@ class LlamaBindings {
       _ggml_backend_buft_get_alloc_sizePtr
           .asFunction<
             int Function(ggml_backend_buffer_type_t, ffi.Pointer<ggml_tensor>)
+          >();
+
+  int ggml_backend_buft_get_alloc_size_n(
+    ggml_backend_buffer_type_t buft,
+    ffi.Pointer<ffi.Pointer<ggml_tensor>> tensors,
+    int n_tensors,
+  ) {
+    return _ggml_backend_buft_get_alloc_size_n(buft, tensors, n_tensors);
+  }
+
+  late final _ggml_backend_buft_get_alloc_size_nPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Size Function(
+            ggml_backend_buffer_type_t,
+            ffi.Pointer<ffi.Pointer<ggml_tensor>>,
+            ffi.Int,
+          )
+        >
+      >('ggml_backend_buft_get_alloc_size_n');
+  late final _ggml_backend_buft_get_alloc_size_n =
+      _ggml_backend_buft_get_alloc_size_nPtr
+          .asFunction<
+            int Function(
+              ggml_backend_buffer_type_t,
+              ffi.Pointer<ffi.Pointer<ggml_tensor>>,
+              int,
+            )
           >();
 
   ggml_backend_dev_t ggml_backend_buft_get_device(
@@ -3071,6 +3177,34 @@ class LlamaBindings {
   late final _ggml_backend_sched_reset = _ggml_backend_sched_resetPtr
       .asFunction<void Function(ggml_backend_sched_t)>();
 
+  void ggml_backend_sched_set_copy_callback(
+    ggml_backend_sched_t sched,
+    ggml_backend_sched_copy_callback callback,
+    ffi.Pointer<ffi.Void> user_data,
+  ) {
+    return _ggml_backend_sched_set_copy_callback(sched, callback, user_data);
+  }
+
+  late final _ggml_backend_sched_set_copy_callbackPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ggml_backend_sched_t,
+            ggml_backend_sched_copy_callback,
+            ffi.Pointer<ffi.Void>,
+          )
+        >
+      >('ggml_backend_sched_set_copy_callback');
+  late final _ggml_backend_sched_set_copy_callback =
+      _ggml_backend_sched_set_copy_callbackPtr
+          .asFunction<
+            void Function(
+              ggml_backend_sched_t,
+              ggml_backend_sched_copy_callback,
+              ffi.Pointer<ffi.Void>,
+            )
+          >();
+
   void ggml_backend_sched_set_eval_callback(
     ggml_backend_sched_t sched,
     ggml_backend_sched_eval_callback callback,
@@ -3095,6 +3229,34 @@ class LlamaBindings {
             void Function(
               ggml_backend_sched_t,
               ggml_backend_sched_eval_callback,
+              ffi.Pointer<ffi.Void>,
+            )
+          >();
+
+  void ggml_backend_sched_set_realloc_callback(
+    ggml_backend_sched_t sched,
+    ggml_backend_sched_realloc_callback callback,
+    ffi.Pointer<ffi.Void> user_data,
+  ) {
+    return _ggml_backend_sched_set_realloc_callback(sched, callback, user_data);
+  }
+
+  late final _ggml_backend_sched_set_realloc_callbackPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ggml_backend_sched_t,
+            ggml_backend_sched_realloc_callback,
+            ffi.Pointer<ffi.Void>,
+          )
+        >
+      >('ggml_backend_sched_set_realloc_callback');
+  late final _ggml_backend_sched_set_realloc_callback =
+      _ggml_backend_sched_set_realloc_callbackPtr
+          .asFunction<
+            void Function(
+              ggml_backend_sched_t,
+              ggml_backend_sched_realloc_callback,
               ffi.Pointer<ffi.Void>,
             )
           >();
@@ -3728,6 +3890,24 @@ class LlamaBindings {
         void Function(ffi.Pointer<ggml_cgraph>, ffi.Pointer<ggml_tensor>)
       >();
 
+  void ggml_build_forward_order(
+    ffi.Pointer<ggml_cgraph> cgraph,
+    ffi.Pointer<ggml_tensor> tensor,
+  ) {
+    return _ggml_build_forward_order(cgraph, tensor);
+  }
+
+  late final _ggml_build_forward_orderPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ggml_cgraph>, ffi.Pointer<ggml_tensor>)
+        >
+      >('ggml_build_forward_order');
+  late final _ggml_build_forward_order = _ggml_build_forward_orderPtr
+      .asFunction<
+        void Function(ffi.Pointer<ggml_cgraph>, ffi.Pointer<ggml_tensor>)
+      >();
+
   ffi.Pointer<ggml_tensor> ggml_build_forward_select(
     ffi.Pointer<ggml_cgraph> cgraph,
     ffi.Pointer<ffi.Pointer<ggml_tensor>> tensors,
@@ -3872,6 +4052,36 @@ class LlamaBindings {
         >
       >('ggml_clamp');
   late final _ggml_clamp = _ggml_clampPtr
+      .asFunction<
+        ffi.Pointer<ggml_tensor> Function(
+          ffi.Pointer<ggml_context>,
+          ffi.Pointer<ggml_tensor>,
+          double,
+          double,
+        )
+      >();
+
+  ffi.Pointer<ggml_tensor> ggml_clamp_inplace(
+    ffi.Pointer<ggml_context> ctx,
+    ffi.Pointer<ggml_tensor> a,
+    double min,
+    double max,
+  ) {
+    return _ggml_clamp_inplace(ctx, a, min, max);
+  }
+
+  late final _ggml_clamp_inplacePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ggml_tensor> Function(
+            ffi.Pointer<ggml_context>,
+            ffi.Pointer<ggml_tensor>,
+            ffi.Float,
+            ffi.Float,
+          )
+        >
+      >('ggml_clamp_inplace');
+  late final _ggml_clamp_inplace = _ggml_clamp_inplacePtr
       .asFunction<
         ffi.Pointer<ggml_tensor> Function(
           ffi.Pointer<ggml_context>,
@@ -5679,6 +5889,36 @@ class LlamaBindings {
         )
       >();
 
+  ffi.Pointer<ggml_tensor> ggml_dsv4_hc_pre_gated(
+    ffi.Pointer<ggml_context> ctx,
+    ffi.Pointer<ggml_tensor> x,
+    ffi.Pointer<ggml_tensor> gate,
+    double scale,
+  ) {
+    return _ggml_dsv4_hc_pre_gated(ctx, x, gate, scale);
+  }
+
+  late final _ggml_dsv4_hc_pre_gatedPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ggml_tensor> Function(
+            ffi.Pointer<ggml_context>,
+            ffi.Pointer<ggml_tensor>,
+            ffi.Pointer<ggml_tensor>,
+            ffi.Float,
+          )
+        >
+      >('ggml_dsv4_hc_pre_gated');
+  late final _ggml_dsv4_hc_pre_gated = _ggml_dsv4_hc_pre_gatedPtr
+      .asFunction<
+        ffi.Pointer<ggml_tensor> Function(
+          ffi.Pointer<ggml_context>,
+          ffi.Pointer<ggml_tensor>,
+          ffi.Pointer<ggml_tensor>,
+          double,
+        )
+      >();
+
   ffi.Pointer<ggml_tensor> ggml_dup(
     ffi.Pointer<ggml_context> ctx,
     ffi.Pointer<ggml_tensor> a,
@@ -6076,6 +6316,24 @@ class LlamaBindings {
   late final _ggml_flash_attn_ext_get_prec = _ggml_flash_attn_ext_get_precPtr
       .asFunction<int Function(ffi.Pointer<ggml_tensor>)>();
 
+  void ggml_flash_attn_ext_set_n_kv_max(
+    ffi.Pointer<ggml_tensor> a,
+    int n_kv_max,
+  ) {
+    return _ggml_flash_attn_ext_set_n_kv_max(a, n_kv_max);
+  }
+
+  late final _ggml_flash_attn_ext_set_n_kv_maxPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ggml_tensor>, ffi.Int32)
+        >
+      >('ggml_flash_attn_ext_set_n_kv_max');
+  late final _ggml_flash_attn_ext_set_n_kv_max =
+      _ggml_flash_attn_ext_set_n_kv_maxPtr
+          .asFunction<void Function(ffi.Pointer<ggml_tensor>, int)>();
+
+  @Deprecated('use ggml_prec_set_acc() instead')
   void ggml_flash_attn_ext_set_prec(
     ffi.Pointer<ggml_tensor> a,
     ggml_prec prec,
@@ -8865,6 +9123,7 @@ class LlamaBindings {
   late final _ggml_mul_mat_set_hint = _ggml_mul_mat_set_hintPtr
       .asFunction<void Function(ffi.Pointer<ggml_tensor>, int)>();
 
+  @Deprecated('use ggml_prec_set_acc() instead')
   void ggml_mul_mat_set_prec(ffi.Pointer<ggml_tensor> a, ggml_prec prec) {
     return _ggml_mul_mat_set_prec(a, prec.value);
   }
@@ -10535,6 +10794,32 @@ class LlamaBindings {
         )
       >();
 
+  bool ggml_prec_set_acc(ffi.Pointer<ggml_tensor> a, ggml_prec prec) {
+    return _ggml_prec_set_acc(a, prec.value);
+  }
+
+  late final _ggml_prec_set_accPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Bool Function(ffi.Pointer<ggml_tensor>, ffi.UnsignedInt)
+        >
+      >('ggml_prec_set_acc');
+  late final _ggml_prec_set_acc = _ggml_prec_set_accPtr
+      .asFunction<bool Function(ffi.Pointer<ggml_tensor>, int)>();
+
+  bool ggml_prec_set_src(ffi.Pointer<ggml_tensor> a, ggml_prec prec, int idx) {
+    return _ggml_prec_set_src(a, prec.value, idx);
+  }
+
+  late final _ggml_prec_set_srcPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Bool Function(ffi.Pointer<ggml_tensor>, ffi.UnsignedInt, ffi.Int)
+        >
+      >('ggml_prec_set_src');
+  late final _ggml_prec_set_src = _ggml_prec_set_srcPtr
+      .asFunction<bool Function(ffi.Pointer<ggml_tensor>, int, int)>();
+
   void ggml_print_object(ffi.Pointer<ggml_object> obj) {
     return _ggml_print_object(obj);
   }
@@ -11770,6 +12055,24 @@ class LlamaBindings {
           double,
           double,
         )
+      >();
+
+  ffi.Pointer<ggml_tensor> ggml_rope_set_offset(
+    ffi.Pointer<ggml_tensor> a,
+    int n_offs,
+  ) {
+    return _ggml_rope_set_offset(a, n_offs);
+  }
+
+  late final _ggml_rope_set_offsetPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ggml_tensor> Function(ffi.Pointer<ggml_tensor>, ffi.Int)
+        >
+      >('ggml_rope_set_offset');
+  late final _ggml_rope_set_offset = _ggml_rope_set_offsetPtr
+      .asFunction<
+        ffi.Pointer<ggml_tensor> Function(ffi.Pointer<ggml_tensor>, int)
       >();
 
   void ggml_rope_yarn_corr_dims(
@@ -13161,8 +13464,9 @@ class LlamaBindings {
     ffi.Pointer<ggml_tensor> B,
     ffi.Pointer<ggml_tensor> C,
     ffi.Pointer<ggml_tensor> ids,
+    int K,
   ) {
-    return _ggml_ssm_scan(ctx, s, x, dt, A, B, C, ids);
+    return _ggml_ssm_scan(ctx, s, x, dt, A, B, C, ids, K);
   }
 
   late final _ggml_ssm_scanPtr =
@@ -13177,6 +13481,7 @@ class LlamaBindings {
             ffi.Pointer<ggml_tensor>,
             ffi.Pointer<ggml_tensor>,
             ffi.Pointer<ggml_tensor>,
+            ffi.Int64,
           )
         >
       >('ggml_ssm_scan');
@@ -13191,6 +13496,7 @@ class LlamaBindings {
           ffi.Pointer<ggml_tensor>,
           ffi.Pointer<ggml_tensor>,
           ffi.Pointer<ggml_tensor>,
+          int,
         )
       >();
 
@@ -13376,6 +13682,36 @@ class LlamaBindings {
         ffi.Pointer<ggml_tensor> Function(
           ffi.Pointer<ggml_context>,
           ffi.Pointer<ggml_tensor>,
+        )
+      >();
+
+  ffi.Pointer<ggml_tensor> ggml_swiglu_clamp(
+    ffi.Pointer<ggml_context> ctx,
+    ffi.Pointer<ggml_tensor> a,
+    ffi.Pointer<ggml_tensor> b,
+    double limit,
+  ) {
+    return _ggml_swiglu_clamp(ctx, a, b, limit);
+  }
+
+  late final _ggml_swiglu_clampPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ggml_tensor> Function(
+            ffi.Pointer<ggml_context>,
+            ffi.Pointer<ggml_tensor>,
+            ffi.Pointer<ggml_tensor>,
+            ffi.Float,
+          )
+        >
+      >('ggml_swiglu_clamp');
+  late final _ggml_swiglu_clamp = _ggml_swiglu_clampPtr
+      .asFunction<
+        ffi.Pointer<ggml_tensor> Function(
+          ffi.Pointer<ggml_context>,
+          ffi.Pointer<ggml_tensor>,
+          ffi.Pointer<ggml_tensor>,
+          double,
         )
       >();
 
@@ -13744,6 +14080,42 @@ class LlamaBindings {
           ffi.Pointer<ggml_context>,
           ffi.Pointer<ggml_tensor>,
           int,
+        )
+      >();
+
+  ffi.Pointer<ggml_tensor> ggml_top_k_mask(
+    ffi.Pointer<ggml_context> ctx,
+    ffi.Pointer<ggml_tensor> mask,
+    ffi.Pointer<ggml_tensor> top_k,
+    ffi.Pointer<ggml_tensor> score,
+    ffi.Pointer<ggml_tensor> blocks,
+    ffi.Pointer<ggml_tensor> extra,
+  ) {
+    return _ggml_top_k_mask(ctx, mask, top_k, score, blocks, extra);
+  }
+
+  late final _ggml_top_k_maskPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ggml_tensor> Function(
+            ffi.Pointer<ggml_context>,
+            ffi.Pointer<ggml_tensor>,
+            ffi.Pointer<ggml_tensor>,
+            ffi.Pointer<ggml_tensor>,
+            ffi.Pointer<ggml_tensor>,
+            ffi.Pointer<ggml_tensor>,
+          )
+        >
+      >('ggml_top_k_mask');
+  late final _ggml_top_k_mask = _ggml_top_k_maskPtr
+      .asFunction<
+        ffi.Pointer<ggml_tensor> Function(
+          ffi.Pointer<ggml_context>,
+          ffi.Pointer<ggml_tensor>,
+          ffi.Pointer<ggml_tensor>,
+          ffi.Pointer<ggml_tensor>,
+          ffi.Pointer<ggml_tensor>,
+          ffi.Pointer<ggml_tensor>,
         )
       >();
 
@@ -15545,6 +15917,31 @@ class LlamaBindings {
         )
       >();
 
+  ffi.Pointer<llama_adapter_lora> llama_adapter_lora_init_from_file_ptr(
+    ffi.Pointer<llama_model> model,
+    ffi.Pointer<FILE> file,
+  ) {
+    return _llama_adapter_lora_init_from_file_ptr(model, file);
+  }
+
+  late final _llama_adapter_lora_init_from_file_ptrPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<llama_adapter_lora> Function(
+            ffi.Pointer<llama_model>,
+            ffi.Pointer<FILE>,
+          )
+        >
+      >('llama_adapter_lora_init_from_file_ptr');
+  late final _llama_adapter_lora_init_from_file_ptr =
+      _llama_adapter_lora_init_from_file_ptrPtr
+          .asFunction<
+            ffi.Pointer<llama_adapter_lora> Function(
+              ffi.Pointer<llama_model>,
+              ffi.Pointer<FILE>,
+            )
+          >();
+
   int llama_adapter_meta_count(ffi.Pointer<llama_adapter_lora> adapter) {
     return _llama_adapter_meta_count(adapter);
   }
@@ -15716,6 +16113,222 @@ class LlamaBindings {
       _lookup<ffi.NativeFunction<ffi.Void Function()>>('llama_backend_init');
   late final _llama_backend_init = _llama_backend_initPtr
       .asFunction<void Function()>();
+
+  int llama_batch_ext_add(ffi.Pointer<llama_batch_ext> batch, int seq_id) {
+    return _llama_batch_ext_add(batch, seq_id);
+  }
+
+  late final _llama_batch_ext_addPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<llama_batch_ext>, llama_seq_id)
+        >
+      >('llama_batch_ext_add');
+  late final _llama_batch_ext_add = _llama_batch_ext_addPtr
+      .asFunction<int Function(ffi.Pointer<llama_batch_ext>, int)>();
+
+  int llama_batch_ext_add_embd(
+    ffi.Pointer<llama_batch_ext> batch,
+    int seq_id,
+    llama_embd embd,
+  ) {
+    return _llama_batch_ext_add_embd(batch, seq_id, embd);
+  }
+
+  late final _llama_batch_ext_add_embdPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<llama_batch_ext>,
+            llama_seq_id,
+            llama_embd,
+          )
+        >
+      >('llama_batch_ext_add_embd');
+  late final _llama_batch_ext_add_embd = _llama_batch_ext_add_embdPtr
+      .asFunction<
+        int Function(ffi.Pointer<llama_batch_ext>, int, llama_embd)
+      >();
+
+  bool llama_batch_ext_add_seq(
+    ffi.Pointer<llama_batch_ext> batch,
+    int idx,
+    int seq_id,
+  ) {
+    return _llama_batch_ext_add_seq(batch, idx, seq_id);
+  }
+
+  late final _llama_batch_ext_add_seqPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Bool Function(
+            ffi.Pointer<llama_batch_ext>,
+            ffi.Int32,
+            llama_seq_id,
+          )
+        >
+      >('llama_batch_ext_add_seq');
+  late final _llama_batch_ext_add_seq = _llama_batch_ext_add_seqPtr
+      .asFunction<bool Function(ffi.Pointer<llama_batch_ext>, int, int)>();
+
+  int llama_batch_ext_add_token(
+    ffi.Pointer<llama_batch_ext> batch,
+    int seq_id,
+    int id,
+  ) {
+    return _llama_batch_ext_add_token(batch, seq_id, id);
+  }
+
+  late final _llama_batch_ext_add_tokenPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<llama_batch_ext>,
+            llama_seq_id,
+            llama_token,
+          )
+        >
+      >('llama_batch_ext_add_token');
+  late final _llama_batch_ext_add_token = _llama_batch_ext_add_tokenPtr
+      .asFunction<int Function(ffi.Pointer<llama_batch_ext>, int, int)>();
+
+  void llama_batch_ext_clear(ffi.Pointer<llama_batch_ext> batch) {
+    return _llama_batch_ext_clear(batch);
+  }
+
+  late final _llama_batch_ext_clearPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<llama_batch_ext>)>
+      >('llama_batch_ext_clear');
+  late final _llama_batch_ext_clear = _llama_batch_ext_clearPtr
+      .asFunction<void Function(ffi.Pointer<llama_batch_ext>)>();
+
+  void llama_batch_ext_free(ffi.Pointer<llama_batch_ext> batch) {
+    return _llama_batch_ext_free(batch);
+  }
+
+  late final _llama_batch_ext_freePtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<llama_batch_ext>)>
+      >('llama_batch_ext_free');
+  late final _llama_batch_ext_free = _llama_batch_ext_freePtr
+      .asFunction<void Function(ffi.Pointer<llama_batch_ext>)>();
+
+  ffi.Pointer<llama_batch_ext> llama_batch_ext_init(
+    ffi.Pointer<llama_context> ctx,
+  ) {
+    return _llama_batch_ext_init(ctx);
+  }
+
+  late final _llama_batch_ext_initPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<llama_batch_ext> Function(ffi.Pointer<llama_context>)
+        >
+      >('llama_batch_ext_init');
+  late final _llama_batch_ext_init = _llama_batch_ext_initPtr
+      .asFunction<
+        ffi.Pointer<llama_batch_ext> Function(ffi.Pointer<llama_context>)
+      >();
+
+  bool llama_batch_ext_set_embd_state(
+    ffi.Pointer<llama_batch_ext> batch,
+    int idx,
+    llama_embd embd,
+  ) {
+    return _llama_batch_ext_set_embd_state(batch, idx, embd);
+  }
+
+  late final _llama_batch_ext_set_embd_statePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Bool Function(ffi.Pointer<llama_batch_ext>, ffi.Int32, llama_embd)
+        >
+      >('llama_batch_ext_set_embd_state');
+  late final _llama_batch_ext_set_embd_state =
+      _llama_batch_ext_set_embd_statePtr
+          .asFunction<
+            bool Function(ffi.Pointer<llama_batch_ext>, int, llama_embd)
+          >();
+
+  bool llama_batch_ext_set_embd_token(
+    ffi.Pointer<llama_batch_ext> batch,
+    int idx,
+    llama_embd embd,
+  ) {
+    return _llama_batch_ext_set_embd_token(batch, idx, embd);
+  }
+
+  late final _llama_batch_ext_set_embd_tokenPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Bool Function(ffi.Pointer<llama_batch_ext>, ffi.Int32, llama_embd)
+        >
+      >('llama_batch_ext_set_embd_token');
+  late final _llama_batch_ext_set_embd_token =
+      _llama_batch_ext_set_embd_tokenPtr
+          .asFunction<
+            bool Function(ffi.Pointer<llama_batch_ext>, int, llama_embd)
+          >();
+
+  bool llama_batch_ext_set_output_embd(
+    ffi.Pointer<llama_batch_ext> batch,
+    int idx,
+    bool value,
+  ) {
+    return _llama_batch_ext_set_output_embd(batch, idx, value);
+  }
+
+  late final _llama_batch_ext_set_output_embdPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Bool Function(ffi.Pointer<llama_batch_ext>, ffi.Int32, ffi.Bool)
+        >
+      >('llama_batch_ext_set_output_embd');
+  late final _llama_batch_ext_set_output_embd =
+      _llama_batch_ext_set_output_embdPtr
+          .asFunction<bool Function(ffi.Pointer<llama_batch_ext>, int, bool)>();
+
+  bool llama_batch_ext_set_output_logits(
+    ffi.Pointer<llama_batch_ext> batch,
+    int idx,
+    bool value,
+  ) {
+    return _llama_batch_ext_set_output_logits(batch, idx, value);
+  }
+
+  late final _llama_batch_ext_set_output_logitsPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Bool Function(ffi.Pointer<llama_batch_ext>, ffi.Int32, ffi.Bool)
+        >
+      >('llama_batch_ext_set_output_logits');
+  late final _llama_batch_ext_set_output_logits =
+      _llama_batch_ext_set_output_logitsPtr
+          .asFunction<bool Function(ffi.Pointer<llama_batch_ext>, int, bool)>();
+
+  bool llama_batch_ext_set_pos(
+    ffi.Pointer<llama_batch_ext> batch,
+    int idx,
+    ffi.Pointer<llama_pos> pos,
+  ) {
+    return _llama_batch_ext_set_pos(batch, idx, pos);
+  }
+
+  late final _llama_batch_ext_set_posPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Bool Function(
+            ffi.Pointer<llama_batch_ext>,
+            ffi.Int32,
+            ffi.Pointer<llama_pos>,
+          )
+        >
+      >('llama_batch_ext_set_pos');
+  late final _llama_batch_ext_set_pos = _llama_batch_ext_set_posPtr
+      .asFunction<
+        bool Function(ffi.Pointer<llama_batch_ext>, int, ffi.Pointer<llama_pos>)
+      >();
 
   void llama_batch_free(llama_batch batch) {
     return _llama_batch_free(batch);
@@ -15985,6 +16598,17 @@ class LlamaBindings {
       >('llama_ftype_name');
   late final _llama_ftype_name = _llama_ftype_namePtr
       .asFunction<ffi.Pointer<ffi.Char> Function(int)>();
+
+  bool llama_get_causal_attn(ffi.Pointer<llama_context> ctx) {
+    return _llama_get_causal_attn(ctx);
+  }
+
+  late final _llama_get_causal_attnPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Bool Function(ffi.Pointer<llama_context>)>
+      >('llama_get_causal_attn');
+  late final _llama_get_causal_attn = _llama_get_causal_attnPtr
+      .asFunction<bool Function(ffi.Pointer<llama_context>)>();
 
   ffi.Pointer<ffi.Float> llama_get_embeddings(ffi.Pointer<llama_context> ctx) {
     return _llama_get_embeddings(ctx);
@@ -16259,9 +16883,9 @@ class LlamaBindings {
   }
 
   late final _llama_load_mode_from_strPtr =
-      _lookup<
-        ffi.NativeFunction<ffi.UnsignedInt Function(ffi.Pointer<ffi.Char>)>
-      >('llama_load_mode_from_str');
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
+        'llama_load_mode_from_str',
+      );
   late final _llama_load_mode_from_str = _llama_load_mode_from_strPtr
       .asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
@@ -16270,9 +16894,9 @@ class LlamaBindings {
   }
 
   late final _llama_load_mode_namePtr =
-      _lookup<
-        ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.UnsignedInt)>
-      >('llama_load_mode_name');
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Int)>>(
+        'llama_load_mode_name',
+      );
   late final _llama_load_mode_name = _llama_load_mode_namePtr
       .asFunction<ffi.Pointer<ffi.Char> Function(int)>();
 
@@ -17540,6 +18164,33 @@ class LlamaBindings {
   late final _llama_print_system_info = _llama_print_system_infoPtr
       .asFunction<ffi.Pointer<ffi.Char> Function()>();
 
+  int llama_process(
+    ffi.Pointer<llama_context> ctx,
+    llama_process_type type,
+    ffi.Pointer<llama_batch_ext> batch,
+  ) {
+    return _llama_process(ctx, type.value, batch);
+  }
+
+  late final _llama_processPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<llama_context>,
+            ffi.UnsignedInt,
+            ffi.Pointer<llama_batch_ext>,
+          )
+        >
+      >('llama_process');
+  late final _llama_process = _llama_processPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<llama_context>,
+          int,
+          ffi.Pointer<llama_batch_ext>,
+        )
+      >();
+
   void llama_sampler_accept(ffi.Pointer<llama_sampler> smpl, int token) {
     return _llama_sampler_accept(smpl, token);
   }
@@ -17653,9 +18304,9 @@ class LlamaBindings {
   }
 
   late final _llama_sampler_chain_nPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<llama_sampler>)>>(
-        'llama_sampler_chain_n',
-      );
+      _lookup<
+        ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<llama_sampler>)>
+      >('llama_sampler_chain_n');
   late final _llama_sampler_chain_n = _llama_sampler_chain_nPtr
       .asFunction<int Function(ffi.Pointer<llama_sampler>)>();
 
@@ -17695,6 +18346,27 @@ class LlamaBindings {
   late final _llama_sampler_clone = _llama_sampler_clonePtr
       .asFunction<
         ffi.Pointer<llama_sampler> Function(ffi.Pointer<llama_sampler>)
+      >();
+
+  void llama_sampler_copy(
+    ffi.Pointer<llama_sampler> src,
+    ffi.Pointer<llama_sampler> dst,
+  ) {
+    return _llama_sampler_copy(src, dst);
+  }
+
+  late final _llama_sampler_copyPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Pointer<llama_sampler>,
+            ffi.Pointer<llama_sampler>,
+          )
+        >
+      >('llama_sampler_copy');
+  late final _llama_sampler_copy = _llama_sampler_copyPtr
+      .asFunction<
+        void Function(ffi.Pointer<llama_sampler>, ffi.Pointer<llama_sampler>)
       >();
 
   void llama_sampler_free(ffi.Pointer<llama_sampler> smpl) {
@@ -17796,7 +18468,6 @@ class LlamaBindings {
   /// @details DRY sampler, designed by p-e-w, as described in: https://github.com/oobabooga/text-generation-webui/pull/5677, porting Koboldcpp implementation authored by pi6am: https://github.com/LostRuins/koboldcpp/pull/982
   ffi.Pointer<llama_sampler> llama_sampler_init_dry(
     ffi.Pointer<llama_vocab> vocab,
-    int n_ctx_train,
     double dry_multiplier,
     double dry_base,
     int dry_allowed_length,
@@ -17806,7 +18477,6 @@ class LlamaBindings {
   ) {
     return _llama_sampler_init_dry(
       vocab,
-      n_ctx_train,
       dry_multiplier,
       dry_base,
       dry_allowed_length,
@@ -17821,7 +18491,6 @@ class LlamaBindings {
         ffi.NativeFunction<
           ffi.Pointer<llama_sampler> Function(
             ffi.Pointer<llama_vocab>,
-            ffi.Int32,
             ffi.Float,
             ffi.Float,
             ffi.Int32,
@@ -17835,7 +18504,6 @@ class LlamaBindings {
       .asFunction<
         ffi.Pointer<llama_sampler> Function(
           ffi.Pointer<llama_vocab>,
-          int,
           double,
           double,
           int,
@@ -18105,12 +18773,14 @@ class LlamaBindings {
 
   /// NOTE: Avoid using on the full vocabulary as searching for repeated tokens can become slow. For example, apply top-k or top-p sampling first.
   ffi.Pointer<llama_sampler> llama_sampler_init_penalties(
+    int n_vocab,
     int penalty_last_n,
     double penalty_repeat,
     double penalty_freq,
     double penalty_present,
   ) {
     return _llama_sampler_init_penalties(
+      n_vocab,
       penalty_last_n,
       penalty_repeat,
       penalty_freq,
@@ -18123,6 +18793,7 @@ class LlamaBindings {
         ffi.NativeFunction<
           ffi.Pointer<llama_sampler> Function(
             ffi.Int32,
+            ffi.Int32,
             ffi.Float,
             ffi.Float,
             ffi.Float,
@@ -18131,7 +18802,7 @@ class LlamaBindings {
       >('llama_sampler_init_penalties');
   late final _llama_sampler_init_penalties = _llama_sampler_init_penaltiesPtr
       .asFunction<
-        ffi.Pointer<llama_sampler> Function(int, double, double, double)
+        ffi.Pointer<llama_sampler> Function(int, int, double, double, double)
       >();
 
   /// #details Updates the logits l_i` = l_i/t. When t <= 0.0f, the maximum logit is kept at it's original value, the rest are set to -inf
@@ -19361,6 +20032,17 @@ class LlamaBindings {
         )
       >();
 
+  ffi.Pointer<ffi.Char> llama_version() {
+    return _llama_version();
+  }
+
+  late final _llama_versionPtr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Char> Function()>>(
+        'llama_version',
+      );
+  late final _llama_version = _llama_versionPtr
+      .asFunction<ffi.Pointer<ffi.Char> Function()>();
+
   int llama_vocab_bos(ffi.Pointer<llama_vocab> vocab) {
     return _llama_vocab_bos(vocab);
   }
@@ -19669,6 +20351,127 @@ class LlamaBindings {
   late final _llama_vocab_type = _llama_vocab_type$1Ptr
       .asFunction<int Function(ffi.Pointer<llama_vocab>)>();
 
+  int mtmd_audio_stream_flush(ffi.Pointer<mtmd_audio_stream> stream, bool end) {
+    return _mtmd_audio_stream_flush(stream, end);
+  }
+
+  late final _mtmd_audio_stream_flushPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<mtmd_audio_stream>, ffi.Bool)
+        >
+      >('mtmd_audio_stream_flush');
+  late final _mtmd_audio_stream_flush = _mtmd_audio_stream_flushPtr
+      .asFunction<int Function(ffi.Pointer<mtmd_audio_stream>, bool)>();
+
+  void mtmd_audio_stream_free(ffi.Pointer<mtmd_audio_stream> stream) {
+    return _mtmd_audio_stream_free(stream);
+  }
+
+  late final _mtmd_audio_stream_freePtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<mtmd_audio_stream>)>
+      >('mtmd_audio_stream_free');
+  late final _mtmd_audio_stream_free = _mtmd_audio_stream_freePtr
+      .asFunction<void Function(ffi.Pointer<mtmd_audio_stream>)>();
+
+  ffi.Pointer<ffi.Float> mtmd_audio_stream_get_output_embd(
+    ffi.Pointer<mtmd_audio_stream> stream,
+  ) {
+    return _mtmd_audio_stream_get_output_embd(stream);
+  }
+
+  late final _mtmd_audio_stream_get_output_embdPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<ffi.Float> Function(ffi.Pointer<mtmd_audio_stream>)
+        >
+      >('mtmd_audio_stream_get_output_embd');
+  late final _mtmd_audio_stream_get_output_embd =
+      _mtmd_audio_stream_get_output_embdPtr
+          .asFunction<
+            ffi.Pointer<ffi.Float> Function(ffi.Pointer<mtmd_audio_stream>)
+          >();
+
+  ffi.Pointer<mtmd_audio_stream> mtmd_audio_stream_init(
+    ffi.Pointer<mtmd_context> ctx,
+    mtmd_audio_stream_params params,
+  ) {
+    return _mtmd_audio_stream_init(ctx, params);
+  }
+
+  late final _mtmd_audio_stream_initPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<mtmd_audio_stream> Function(
+            ffi.Pointer<mtmd_context>,
+            mtmd_audio_stream_params,
+          )
+        >
+      >('mtmd_audio_stream_init');
+  late final _mtmd_audio_stream_init = _mtmd_audio_stream_initPtr
+      .asFunction<
+        ffi.Pointer<mtmd_audio_stream> Function(
+          ffi.Pointer<mtmd_context>,
+          mtmd_audio_stream_params,
+        )
+      >();
+
+  mtmd_audio_stream_params mtmd_audio_stream_params_default() {
+    return _mtmd_audio_stream_params_default();
+  }
+
+  late final _mtmd_audio_stream_params_defaultPtr =
+      _lookup<ffi.NativeFunction<mtmd_audio_stream_params Function()>>(
+        'mtmd_audio_stream_params_default',
+      );
+  late final _mtmd_audio_stream_params_default =
+      _mtmd_audio_stream_params_defaultPtr
+          .asFunction<mtmd_audio_stream_params Function()>();
+
+  int mtmd_audio_stream_push(
+    ffi.Pointer<mtmd_audio_stream> stream,
+    ffi.Pointer<ffi.Float> samples,
+    int n_samples,
+  ) {
+    return _mtmd_audio_stream_push(stream, samples, n_samples);
+  }
+
+  late final _mtmd_audio_stream_pushPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<mtmd_audio_stream>,
+            ffi.Pointer<ffi.Float>,
+            ffi.Size,
+          )
+        >
+      >('mtmd_audio_stream_push');
+  late final _mtmd_audio_stream_push = _mtmd_audio_stream_pushPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<mtmd_audio_stream>,
+          ffi.Pointer<ffi.Float>,
+          int,
+        )
+      >();
+
+  int mtmd_audio_stream_step(
+    ffi.Pointer<mtmd_audio_stream> stream,
+    int last_token,
+  ) {
+    return _mtmd_audio_stream_step(stream, last_token);
+  }
+
+  late final _mtmd_audio_stream_stepPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<mtmd_audio_stream>, llama_token)
+        >
+      >('mtmd_audio_stream_step');
+  late final _mtmd_audio_stream_step = _mtmd_audio_stream_stepPtr
+      .asFunction<int Function(ffi.Pointer<mtmd_audio_stream>, int)>();
+
   int mtmd_batch_add_chunk(
     ffi.Pointer<mtmd_batch> batch,
     ffi.Pointer<mtmd_input_chunk> chunk,
@@ -19929,6 +20732,22 @@ class LlamaBindings {
         void Function(ffi.Pointer<mtmd_bitmap>, ffi.Pointer<ffi.Char>)
       >();
 
+  void mtmd_bitmap_set_mergeable(
+    ffi.Pointer<mtmd_bitmap> bitmap,
+    bool mergeable,
+  ) {
+    return _mtmd_bitmap_set_mergeable(bitmap, mergeable);
+  }
+
+  late final _mtmd_bitmap_set_mergeablePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<mtmd_bitmap>, ffi.Bool)
+        >
+      >('mtmd_bitmap_set_mergeable');
+  late final _mtmd_bitmap_set_mergeable = _mtmd_bitmap_set_mergeablePtr
+      .asFunction<void Function(ffi.Pointer<mtmd_bitmap>, bool)>();
+
   mtmd_context_params mtmd_context_params_default() {
     return _mtmd_context_params_default();
   }
@@ -20037,6 +20856,117 @@ class LlamaBindings {
   late final _mtmd_free = _mtmd_freePtr
       .asFunction<void Function(ffi.Pointer<mtmd_context>)>();
 
+  mtmd_gen_audio_info mtmd_gen_audio_get_info(ffi.Pointer<mtmd_context> ctx) {
+    return _mtmd_gen_audio_get_info(ctx);
+  }
+
+  late final _mtmd_gen_audio_get_infoPtr =
+      _lookup<
+        ffi.NativeFunction<
+          mtmd_gen_audio_info Function(ffi.Pointer<mtmd_context>)
+        >
+      >('mtmd_gen_audio_get_info');
+  late final _mtmd_gen_audio_get_info = _mtmd_gen_audio_get_infoPtr
+      .asFunction<mtmd_gen_audio_info Function(ffi.Pointer<mtmd_context>)>();
+
+  int mtmd_gen_audio_process(
+    ffi.Pointer<mtmd_context> ctx,
+    ffi.Pointer<mtmd_gen_state> state,
+    ffi.Pointer<mtmd_gen_inp> inp,
+    ffi.Pointer<mtmd_gen_out> out,
+  ) {
+    return _mtmd_gen_audio_process(ctx, state, inp, out);
+  }
+
+  late final _mtmd_gen_audio_processPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<mtmd_context>,
+            ffi.Pointer<mtmd_gen_state>,
+            ffi.Pointer<mtmd_gen_inp>,
+            ffi.Pointer<mtmd_gen_out>,
+          )
+        >
+      >('mtmd_gen_audio_process');
+  late final _mtmd_gen_audio_process = _mtmd_gen_audio_processPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<mtmd_context>,
+          ffi.Pointer<mtmd_gen_state>,
+          ffi.Pointer<mtmd_gen_inp>,
+          ffi.Pointer<mtmd_gen_out>,
+        )
+      >();
+
+  mtmd_gen_inp mtmd_gen_inp_default(ffi.Pointer<mtmd_context> ctx) {
+    return _mtmd_gen_inp_default(ctx);
+  }
+
+  late final _mtmd_gen_inp_defaultPtr =
+      _lookup<
+        ffi.NativeFunction<mtmd_gen_inp Function(ffi.Pointer<mtmd_context>)>
+      >('mtmd_gen_inp_default');
+  late final _mtmd_gen_inp_default = _mtmd_gen_inp_defaultPtr
+      .asFunction<mtmd_gen_inp Function(ffi.Pointer<mtmd_context>)>();
+
+  void mtmd_gen_state_free(ffi.Pointer<mtmd_gen_state> state) {
+    return _mtmd_gen_state_free(state);
+  }
+
+  late final _mtmd_gen_state_freePtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<mtmd_gen_state>)>
+      >('mtmd_gen_state_free');
+  late final _mtmd_gen_state_free = _mtmd_gen_state_freePtr
+      .asFunction<void Function(ffi.Pointer<mtmd_gen_state>)>();
+
+  ffi.Pointer<mtmd_gen_state> mtmd_gen_state_init(
+    ffi.Pointer<mtmd_context> ctx,
+    mtmd_gen_state_params params,
+  ) {
+    return _mtmd_gen_state_init(ctx, params);
+  }
+
+  late final _mtmd_gen_state_initPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<mtmd_gen_state> Function(
+            ffi.Pointer<mtmd_context>,
+            mtmd_gen_state_params,
+          )
+        >
+      >('mtmd_gen_state_init');
+  late final _mtmd_gen_state_init = _mtmd_gen_state_initPtr
+      .asFunction<
+        ffi.Pointer<mtmd_gen_state> Function(
+          ffi.Pointer<mtmd_context>,
+          mtmd_gen_state_params,
+        )
+      >();
+
+  mtmd_gen_state_params mtmd_gen_state_params_default() {
+    return _mtmd_gen_state_params_default();
+  }
+
+  late final _mtmd_gen_state_params_defaultPtr =
+      _lookup<ffi.NativeFunction<mtmd_gen_state_params Function()>>(
+        'mtmd_gen_state_params_default',
+      );
+  late final _mtmd_gen_state_params_default = _mtmd_gen_state_params_defaultPtr
+      .asFunction<mtmd_gen_state_params Function()>();
+
+  void mtmd_gen_state_reset(ffi.Pointer<mtmd_gen_state> state) {
+    return _mtmd_gen_state_reset(state);
+  }
+
+  late final _mtmd_gen_state_resetPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Pointer<mtmd_gen_state>)>
+      >('mtmd_gen_state_reset');
+  late final _mtmd_gen_state_reset = _mtmd_gen_state_resetPtr
+      .asFunction<void Function(ffi.Pointer<mtmd_gen_state>)>();
+
   int mtmd_get_audio_sample_rate(ffi.Pointer<mtmd_context> ctx) {
     return _mtmd_get_audio_sample_rate(ctx);
   }
@@ -20090,8 +21020,9 @@ class LlamaBindings {
     ffi.Pointer<ffi.UnsignedChar> buf,
     int len,
     bool placeholder,
+    mtmd_helper_init_opt opt,
   ) {
-    return _mtmd_helper_bitmap_init_from_buf(ctx, buf, len, placeholder);
+    return _mtmd_helper_bitmap_init_from_buf(ctx, buf, len, placeholder, opt);
   }
 
   late final _mtmd_helper_bitmap_init_from_bufPtr =
@@ -20102,6 +21033,7 @@ class LlamaBindings {
             ffi.Pointer<ffi.UnsignedChar>,
             ffi.Size,
             ffi.Bool,
+            mtmd_helper_init_opt,
           )
         >
       >('mtmd_helper_bitmap_init_from_buf');
@@ -20113,6 +21045,7 @@ class LlamaBindings {
               ffi.Pointer<ffi.UnsignedChar>,
               int,
               bool,
+              mtmd_helper_init_opt,
             )
           >();
 
@@ -20120,8 +21053,9 @@ class LlamaBindings {
     ffi.Pointer<mtmd_context> ctx,
     ffi.Pointer<ffi.Char> fname,
     bool placeholder,
+    mtmd_helper_init_opt opt,
   ) {
-    return _mtmd_helper_bitmap_init_from_file(ctx, fname, placeholder);
+    return _mtmd_helper_bitmap_init_from_file(ctx, fname, placeholder, opt);
   }
 
   late final _mtmd_helper_bitmap_init_from_filePtr =
@@ -20131,6 +21065,7 @@ class LlamaBindings {
             ffi.Pointer<mtmd_context>,
             ffi.Pointer<ffi.Char>,
             ffi.Bool,
+            mtmd_helper_init_opt,
           )
         >
       >('mtmd_helper_bitmap_init_from_file');
@@ -20141,6 +21076,7 @@ class LlamaBindings {
               ffi.Pointer<mtmd_context>,
               ffi.Pointer<ffi.Char>,
               bool,
+              mtmd_helper_init_opt,
             )
           >();
 
@@ -20306,6 +21242,203 @@ class LlamaBindings {
         )
       >();
 
+  int mtmd_helper_gen_audio_flush(ffi.Pointer<mtmd_helper_gen_audio> ctx) {
+    return _mtmd_helper_gen_audio_flush(ctx);
+  }
+
+  late final _mtmd_helper_gen_audio_flushPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<mtmd_helper_gen_audio>)
+        >
+      >('mtmd_helper_gen_audio_flush');
+  late final _mtmd_helper_gen_audio_flush = _mtmd_helper_gen_audio_flushPtr
+      .asFunction<int Function(ffi.Pointer<mtmd_helper_gen_audio>)>();
+
+  void mtmd_helper_gen_audio_free(ffi.Pointer<mtmd_helper_gen_audio> ctx) {
+    return _mtmd_helper_gen_audio_free(ctx);
+  }
+
+  late final _mtmd_helper_gen_audio_freePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<mtmd_helper_gen_audio>)
+        >
+      >('mtmd_helper_gen_audio_free');
+  late final _mtmd_helper_gen_audio_free = _mtmd_helper_gen_audio_freePtr
+      .asFunction<void Function(ffi.Pointer<mtmd_helper_gen_audio>)>();
+
+  int mtmd_helper_gen_audio_get_output(
+    ffi.Pointer<mtmd_helper_gen_audio> ctx,
+    ffi.Pointer<ffi.Int32> out_sample_rate,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> out_data,
+    ffi.Pointer<ffi.Size> out_data_len,
+    ffi.Pointer<ffi.Int64> out_n_samples,
+  ) {
+    return _mtmd_helper_gen_audio_get_output(
+      ctx,
+      out_sample_rate,
+      out_data,
+      out_data_len,
+      out_n_samples,
+    );
+  }
+
+  late final _mtmd_helper_gen_audio_get_outputPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<mtmd_helper_gen_audio>,
+            ffi.Pointer<ffi.Int32>,
+            ffi.Pointer<ffi.Pointer<ffi.Char>>,
+            ffi.Pointer<ffi.Size>,
+            ffi.Pointer<ffi.Int64>,
+          )
+        >
+      >('mtmd_helper_gen_audio_get_output');
+  late final _mtmd_helper_gen_audio_get_output =
+      _mtmd_helper_gen_audio_get_outputPtr
+          .asFunction<
+            int Function(
+              ffi.Pointer<mtmd_helper_gen_audio>,
+              ffi.Pointer<ffi.Int32>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Pointer<ffi.Size>,
+              ffi.Pointer<ffi.Int64>,
+            )
+          >();
+
+  ffi.Pointer<mtmd_helper_gen_audio> mtmd_helper_gen_audio_init(
+    ffi.Pointer<llama_context> lctx,
+    ffi.Pointer<mtmd_context> mctx,
+  ) {
+    return _mtmd_helper_gen_audio_init(lctx, mctx);
+  }
+
+  late final _mtmd_helper_gen_audio_initPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<mtmd_helper_gen_audio> Function(
+            ffi.Pointer<llama_context>,
+            ffi.Pointer<mtmd_context>,
+          )
+        >
+      >('mtmd_helper_gen_audio_init');
+  late final _mtmd_helper_gen_audio_init = _mtmd_helper_gen_audio_initPtr
+      .asFunction<
+        ffi.Pointer<mtmd_helper_gen_audio> Function(
+          ffi.Pointer<llama_context>,
+          ffi.Pointer<mtmd_context>,
+        )
+      >();
+
+  mtmd_helper_gen_audio_inp mtmd_helper_gen_audio_inp_default() {
+    return _mtmd_helper_gen_audio_inp_default();
+  }
+
+  late final _mtmd_helper_gen_audio_inp_defaultPtr =
+      _lookup<ffi.NativeFunction<mtmd_helper_gen_audio_inp Function()>>(
+        'mtmd_helper_gen_audio_inp_default',
+      );
+  late final _mtmd_helper_gen_audio_inp_default =
+      _mtmd_helper_gen_audio_inp_defaultPtr
+          .asFunction<mtmd_helper_gen_audio_inp Function()>();
+
+  void mtmd_helper_gen_audio_reset(ffi.Pointer<mtmd_helper_gen_audio> ctx) {
+    return _mtmd_helper_gen_audio_reset(ctx);
+  }
+
+  late final _mtmd_helper_gen_audio_resetPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<mtmd_helper_gen_audio>)
+        >
+      >('mtmd_helper_gen_audio_reset');
+  late final _mtmd_helper_gen_audio_reset = _mtmd_helper_gen_audio_resetPtr
+      .asFunction<void Function(ffi.Pointer<mtmd_helper_gen_audio>)>();
+
+  int mtmd_helper_gen_audio_set_input(
+    ffi.Pointer<mtmd_helper_gen_audio> ctx,
+    ffi.Pointer<mtmd_helper_gen_audio_inp> inp,
+  ) {
+    return _mtmd_helper_gen_audio_set_input(ctx, inp);
+  }
+
+  late final _mtmd_helper_gen_audio_set_inputPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<mtmd_helper_gen_audio>,
+            ffi.Pointer<mtmd_helper_gen_audio_inp>,
+          )
+        >
+      >('mtmd_helper_gen_audio_set_input');
+  late final _mtmd_helper_gen_audio_set_input =
+      _mtmd_helper_gen_audio_set_inputPtr
+          .asFunction<
+            int Function(
+              ffi.Pointer<mtmd_helper_gen_audio>,
+              ffi.Pointer<mtmd_helper_gen_audio_inp>,
+            )
+          >();
+
+  int mtmd_helper_gen_audio_step_gen(
+    ffi.Pointer<mtmd_helper_gen_audio> ctx,
+    int sampled,
+    ffi.Pointer<ffi.Float> h_state_in,
+    ffi.Pointer<ffi.Pointer<ffi.Float>> h_state_out,
+    ffi.Pointer<ffi.Bool> out_stop,
+  ) {
+    return _mtmd_helper_gen_audio_step_gen(
+      ctx,
+      sampled,
+      h_state_in,
+      h_state_out,
+      out_stop,
+    );
+  }
+
+  late final _mtmd_helper_gen_audio_step_genPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<mtmd_helper_gen_audio>,
+            llama_token,
+            ffi.Pointer<ffi.Float>,
+            ffi.Pointer<ffi.Pointer<ffi.Float>>,
+            ffi.Pointer<ffi.Bool>,
+          )
+        >
+      >('mtmd_helper_gen_audio_step_gen');
+  late final _mtmd_helper_gen_audio_step_gen =
+      _mtmd_helper_gen_audio_step_genPtr
+          .asFunction<
+            int Function(
+              ffi.Pointer<mtmd_helper_gen_audio>,
+              int,
+              ffi.Pointer<ffi.Float>,
+              ffi.Pointer<ffi.Pointer<ffi.Float>>,
+              ffi.Pointer<ffi.Bool>,
+            )
+          >();
+
+  int mtmd_helper_gen_audio_step_prompt(
+    ffi.Pointer<mtmd_helper_gen_audio> ctx,
+    int n_batch,
+  ) {
+    return _mtmd_helper_gen_audio_step_prompt(ctx, n_batch);
+  }
+
+  late final _mtmd_helper_gen_audio_step_promptPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(ffi.Pointer<mtmd_helper_gen_audio>, ffi.Int32)
+        >
+      >('mtmd_helper_gen_audio_step_prompt');
+  late final _mtmd_helper_gen_audio_step_prompt =
+      _mtmd_helper_gen_audio_step_promptPtr
+          .asFunction<int Function(ffi.Pointer<mtmd_helper_gen_audio>, int)>();
+
   int mtmd_helper_get_n_pos(ffi.Pointer<mtmd_input_chunks> chunks) {
     return _mtmd_helper_get_n_pos(chunks);
   }
@@ -20356,6 +21489,17 @@ class LlamaBindings {
             )
           >();
 
+  mtmd_helper_init_opt mtmd_helper_init_opt_default() {
+    return _mtmd_helper_init_opt_default();
+  }
+
+  late final _mtmd_helper_init_opt_defaultPtr =
+      _lookup<ffi.NativeFunction<mtmd_helper_init_opt Function()>>(
+        'mtmd_helper_init_opt_default',
+      );
+  late final _mtmd_helper_init_opt_default = _mtmd_helper_init_opt_defaultPtr
+      .asFunction<mtmd_helper_init_opt Function()>();
+
   void mtmd_helper_log_set(
     ggml_log_callback log_callback,
     ffi.Pointer<ffi.Void> user_data,
@@ -20371,6 +21515,27 @@ class LlamaBindings {
       >('mtmd_helper_log_set');
   late final _mtmd_helper_log_set = _mtmd_helper_log_setPtr
       .asFunction<void Function(ggml_log_callback, ffi.Pointer<ffi.Void>)>();
+
+  bool mtmd_helper_model_can_chat(
+    ffi.Pointer<llama_context> lctx,
+    ffi.Pointer<mtmd_context> mctx,
+  ) {
+    return _mtmd_helper_model_can_chat(lctx, mctx);
+  }
+
+  late final _mtmd_helper_model_can_chatPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Bool Function(
+            ffi.Pointer<llama_context>,
+            ffi.Pointer<mtmd_context>,
+          )
+        >
+      >('mtmd_helper_model_can_chat');
+  late final _mtmd_helper_model_can_chat = _mtmd_helper_model_can_chatPtr
+      .asFunction<
+        bool Function(ffi.Pointer<llama_context>, ffi.Pointer<mtmd_context>)
+      >();
 
   bool mtmd_helper_support_video(ffi.Pointer<mtmd_context> ctx) {
     return _mtmd_helper_support_video(ctx);
@@ -20692,6 +21857,26 @@ class LlamaBindings {
   late final _mtmd_input_chunk_get_n_tokens = _mtmd_input_chunk_get_n_tokensPtr
       .asFunction<int Function(ffi.Pointer<mtmd_input_chunk>)>();
 
+  ffi.Pointer<mtmd_input_chunk> mtmd_input_chunk_get_placeholder(
+    ffi.Pointer<mtmd_input_chunk> chunk,
+  ) {
+    return _mtmd_input_chunk_get_placeholder(chunk);
+  }
+
+  late final _mtmd_input_chunk_get_placeholderPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<mtmd_input_chunk> Function(ffi.Pointer<mtmd_input_chunk>)
+        >
+      >('mtmd_input_chunk_get_placeholder');
+  late final _mtmd_input_chunk_get_placeholder =
+      _mtmd_input_chunk_get_placeholderPtr
+          .asFunction<
+            ffi.Pointer<mtmd_input_chunk> Function(
+              ffi.Pointer<mtmd_input_chunk>,
+            )
+          >();
+
   ffi.Pointer<mtmd_image_tokens> mtmd_input_chunk_get_tokens_image(
     ffi.Pointer<mtmd_input_chunk> chunk,
   ) {
@@ -20751,6 +21936,57 @@ class LlamaBindings {
       >('mtmd_input_chunk_get_type');
   late final _mtmd_input_chunk_get_type = _mtmd_input_chunk_get_typePtr
       .asFunction<int Function(ffi.Pointer<mtmd_input_chunk>)>();
+
+  ffi.Pointer<mtmd_input_chunk> mtmd_input_chunk_load(
+    ffi.Pointer<ffi.Char> buf,
+    int len,
+  ) {
+    return _mtmd_input_chunk_load(buf, len);
+  }
+
+  late final _mtmd_input_chunk_loadPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<mtmd_input_chunk> Function(
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+          )
+        >
+      >('mtmd_input_chunk_load');
+  late final _mtmd_input_chunk_load = _mtmd_input_chunk_loadPtr
+      .asFunction<
+        ffi.Pointer<mtmd_input_chunk> Function(ffi.Pointer<ffi.Char>, int)
+      >();
+
+  int mtmd_input_chunk_save(
+    ffi.Pointer<mtmd_input_chunk> chunk,
+    ffi.Pointer<ffi.Char> out_buf,
+    int out_len,
+    ffi.Pointer<ffi.Size> expected_out_len,
+  ) {
+    return _mtmd_input_chunk_save(chunk, out_buf, out_len, expected_out_len);
+  }
+
+  late final _mtmd_input_chunk_savePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<mtmd_input_chunk>,
+            ffi.Pointer<ffi.Char>,
+            ffi.Size,
+            ffi.Pointer<ffi.Size>,
+          )
+        >
+      >('mtmd_input_chunk_save');
+  late final _mtmd_input_chunk_save = _mtmd_input_chunk_savePtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<mtmd_input_chunk>,
+          ffi.Pointer<ffi.Char>,
+          int,
+          ffi.Pointer<ffi.Size>,
+        )
+      >();
 
   void mtmd_input_chunks_free(ffi.Pointer<mtmd_input_chunks> chunks) {
     return _mtmd_input_chunks_free(chunks);
@@ -20836,6 +22072,18 @@ class LlamaBindings {
   late final _mtmd_support_audio = _mtmd_support_audioPtr
       .asFunction<bool Function(ffi.Pointer<mtmd_context>)>();
 
+  /// //////////////////////////////////////
+  bool mtmd_support_audio_stream(ffi.Pointer<mtmd_context> ctx) {
+    return _mtmd_support_audio_stream(ctx);
+  }
+
+  late final _mtmd_support_audio_streamPtr =
+      _lookup<ffi.NativeFunction<ffi.Bool Function(ffi.Pointer<mtmd_context>)>>(
+        'mtmd_support_audio_stream',
+      );
+  late final _mtmd_support_audio_stream = _mtmd_support_audio_streamPtr
+      .asFunction<bool Function(ffi.Pointer<mtmd_context>)>();
+
   bool mtmd_support_vision(ffi.Pointer<mtmd_context> ctx) {
     return _mtmd_support_vision(ctx);
   }
@@ -20889,6 +22137,39 @@ class LlamaBindings {
           ffi.Pointer<mtmd_input_text>,
           ffi.Pointer<ffi.Pointer<mtmd_bitmap>>,
           int,
+        )
+      >();
+
+  int mtmd_tokenize_from_parts(
+    ffi.Pointer<mtmd_context> ctx,
+    ffi.Pointer<mtmd_input_chunks> output,
+    ffi.Pointer<ffi.Pointer<mtmd_input_part>> parts,
+    int n_parts,
+    bool add_special,
+  ) {
+    return _mtmd_tokenize_from_parts(ctx, output, parts, n_parts, add_special);
+  }
+
+  late final _mtmd_tokenize_from_partsPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Int32 Function(
+            ffi.Pointer<mtmd_context>,
+            ffi.Pointer<mtmd_input_chunks>,
+            ffi.Pointer<ffi.Pointer<mtmd_input_part>>,
+            ffi.Size,
+            ffi.Bool,
+          )
+        >
+      >('mtmd_tokenize_from_parts');
+  late final _mtmd_tokenize_from_parts = _mtmd_tokenize_from_partsPtr
+      .asFunction<
+        int Function(
+          ffi.Pointer<mtmd_context>,
+          ffi.Pointer<mtmd_input_chunks>,
+          ffi.Pointer<ffi.Pointer<mtmd_input_part>>,
+          int,
+          bool,
         )
       >();
 
@@ -21171,12 +22452,8 @@ class LlamaBindings {
   late final _setbuf = _setbufPtr
       .asFunction<void Function(ffi.Pointer<FILE>, ffi.Pointer<ffi.Char>)>();
 
-  void setbuffer(
-    ffi.Pointer<FILE> arg0,
-    ffi.Pointer<ffi.Char> arg1,
-    int __size,
-  ) {
-    return _setbuffer(arg0, arg1, __size);
+  void setbuffer(ffi.Pointer<FILE> arg0, ffi.Pointer<ffi.Char> arg1, int arg2) {
+    return _setbuffer(arg0, arg1, arg2);
   }
 
   late final _setbufferPtr =
@@ -21205,9 +22482,9 @@ class LlamaBindings {
     ffi.Pointer<FILE> arg0,
     ffi.Pointer<ffi.Char> arg1,
     int arg2,
-    int __size,
+    int arg3,
   ) {
-    return _setvbuf(arg0, arg1, arg2, __size);
+    return _setvbuf(arg0, arg1, arg2, arg3);
   }
 
   late final _setvbufPtr =
@@ -21659,7 +22936,7 @@ const int LLAMA_FILE_MAGIC_GGSQ = 1734833009;
 
 const int LLAMA_SESSION_MAGIC = 1734833006;
 
-const int LLAMA_SESSION_VERSION = 9;
+const int LLAMA_SESSION_VERSION = 11;
 
 const int LLAMA_STATE_SEQ_FLAGS_NONE = 0;
 
@@ -21671,7 +22948,7 @@ const int LLAMA_STATE_SEQ_FLAGS_SWA_ONLY = 1;
 
 const int LLAMA_STATE_SEQ_MAGIC = 1734833009;
 
-const int LLAMA_STATE_SEQ_VERSION = 2;
+const int LLAMA_STATE_SEQ_VERSION = 4;
 
 const int LLAMA_TOKEN_NULL = -1;
 
@@ -21721,8 +22998,6 @@ const int MAC_OS_VERSION_13_5 = 130500;
 
 const int MAC_OS_VERSION_13_6 = 130600;
 
-const int MAC_OS_VERSION_13_7 = 130700;
-
 const int MAC_OS_VERSION_14_0 = 140000;
 
 const int MAC_OS_VERSION_14_1 = 140100;
@@ -21735,37 +23010,11 @@ const int MAC_OS_VERSION_14_4 = 140400;
 
 const int MAC_OS_VERSION_14_5 = 140500;
 
-const int MAC_OS_VERSION_14_6 = 140600;
-
-const int MAC_OS_VERSION_14_7 = 140700;
-
 const int MAC_OS_VERSION_15_0 = 150000;
 
 const int MAC_OS_VERSION_15_1 = 150100;
 
 const int MAC_OS_VERSION_15_2 = 150200;
-
-const int MAC_OS_VERSION_15_3 = 150300;
-
-const int MAC_OS_VERSION_15_4 = 150400;
-
-const int MAC_OS_VERSION_15_5 = 150500;
-
-const int MAC_OS_VERSION_15_6 = 150600;
-
-const int MAC_OS_VERSION_16_0 = 160000;
-
-const int MAC_OS_VERSION_26_0 = 260000;
-
-const int MAC_OS_VERSION_26_1 = 260100;
-
-const int MAC_OS_VERSION_26_2 = 260200;
-
-const int MAC_OS_VERSION_26_3 = 260300;
-
-const int MAC_OS_VERSION_26_4 = 260400;
-
-const int MAC_OS_VERSION_26_5 = 260500;
 
 const int MAC_OS_X_VERSION_10_0 = 1000;
 
@@ -21848,8 +23097,6 @@ const int RENAME_EXCL = 4;
 const int RENAME_NOFOLLOW_ANY = 16;
 
 const int RENAME_RESERVED1 = 8;
-
-const int RENAME_RESOLVE_BENEATH = 32;
 
 const int RENAME_SECLUDE = 1;
 
@@ -21998,47 +23245,15 @@ const int __API_TO_BE_DEPRECATED_DRIVERKIT = 100000;
 
 const int __API_TO_BE_DEPRECATED_IOS = 100000;
 
-const int __API_TO_BE_DEPRECATED_IOSAPPLICATIONEXTENSION = 100000;
-
-const int __API_TO_BE_DEPRECATED_KERNELKIT = 100000;
-
 const int __API_TO_BE_DEPRECATED_MACCATALYST = 100000;
-
-const int __API_TO_BE_DEPRECATED_MACCATALYSTAPPLICATIONEXTENSION = 100000;
 
 const int __API_TO_BE_DEPRECATED_MACOS = 100000;
 
-const int __API_TO_BE_DEPRECATED_MACOSAPPLICATIONEXTENSION = 100000;
-
 const int __API_TO_BE_DEPRECATED_TVOS = 100000;
-
-const int __API_TO_BE_DEPRECATED_TVOSAPPLICATIONEXTENSION = 100000;
 
 const int __API_TO_BE_DEPRECATED_VISIONOS = 100000;
 
-const int __API_TO_BE_DEPRECATED_VISIONOSAPPLICATIONEXTENSION = 100000;
-
 const int __API_TO_BE_DEPRECATED_WATCHOS = 100000;
-
-const int __API_TO_BE_DEPRECATED_WATCHOSAPPLICATIONEXTENSION = 100000;
-
-const String __AVAILABILITY_FILE = 'AvailabilityVersions.h';
-
-const int __AVAILABILITY_VERSIONS_VERSION_HASH = 93585900;
-
-const String __AVAILABILITY_VERSIONS_VERSION_STRING = 'Local';
-
-const int __BRIDGEOS_10_0 = 100000;
-
-const int __BRIDGEOS_10_1 = 100100;
-
-const int __BRIDGEOS_10_2 = 100200;
-
-const int __BRIDGEOS_10_3 = 100300;
-
-const int __BRIDGEOS_10_4 = 100400;
-
-const int __BRIDGEOS_26_5 = 260500;
 
 const int __BRIDGEOS_2_0 = 20000;
 
@@ -22092,21 +23307,11 @@ const int __BRIDGEOS_8_4 = 80400;
 
 const int __BRIDGEOS_8_5 = 80500;
 
-const int __BRIDGEOS_8_6 = 80600;
-
 const int __BRIDGEOS_9_0 = 90000;
 
 const int __BRIDGEOS_9_1 = 90100;
 
 const int __BRIDGEOS_9_2 = 90200;
-
-const int __BRIDGEOS_9_3 = 90300;
-
-const int __BRIDGEOS_9_4 = 90400;
-
-const int __BRIDGEOS_9_5 = 90500;
-
-const int __BRIDGEOS_9_6 = 90600;
 
 const int __DARWIN_64_BIT_INO_T = 1;
 
@@ -22166,33 +23371,11 @@ const int __DRIVERKIT_23_4 = 230400;
 
 const int __DRIVERKIT_23_5 = 230500;
 
-const int __DRIVERKIT_23_6 = 230600;
-
 const int __DRIVERKIT_24_0 = 240000;
 
 const int __DRIVERKIT_24_1 = 240100;
 
 const int __DRIVERKIT_24_2 = 240200;
-
-const int __DRIVERKIT_24_3 = 240300;
-
-const int __DRIVERKIT_24_4 = 240400;
-
-const int __DRIVERKIT_24_5 = 240500;
-
-const int __DRIVERKIT_24_6 = 240600;
-
-const int __DRIVERKIT_25_0 = 250000;
-
-const int __DRIVERKIT_25_1 = 250100;
-
-const int __DRIVERKIT_25_2 = 250200;
-
-const int __DRIVERKIT_25_3 = 250300;
-
-const int __DRIVERKIT_25_4 = 250400;
-
-const int __DRIVERKIT_25_5 = 250500;
 
 const int __ENABLE_LEGACY_MAC_AVAILABILITY = 1;
 
@@ -22248,6 +23431,8 @@ const int __IPHONE_14_2 = 140200;
 
 const int __IPHONE_14_3 = 140300;
 
+const int __IPHONE_14_4 = 140400;
+
 const int __IPHONE_14_5 = 140500;
 
 const int __IPHONE_14_6 = 140600;
@@ -22302,37 +23487,11 @@ const int __IPHONE_17_4 = 170400;
 
 const int __IPHONE_17_5 = 170500;
 
-const int __IPHONE_17_6 = 170600;
-
-const int __IPHONE_17_7 = 170700;
-
 const int __IPHONE_18_0 = 180000;
 
 const int __IPHONE_18_1 = 180100;
 
 const int __IPHONE_18_2 = 180200;
-
-const int __IPHONE_18_3 = 180300;
-
-const int __IPHONE_18_4 = 180400;
-
-const int __IPHONE_18_5 = 180500;
-
-const int __IPHONE_18_6 = 180600;
-
-const int __IPHONE_19_0 = 190000;
-
-const int __IPHONE_26_0 = 260000;
-
-const int __IPHONE_26_1 = 260100;
-
-const int __IPHONE_26_2 = 260200;
-
-const int __IPHONE_26_3 = 260300;
-
-const int __IPHONE_26_4 = 260400;
-
-const int __IPHONE_26_5 = 260500;
 
 const int __IPHONE_2_0 = 20000;
 
@@ -22494,8 +23653,6 @@ const int __MAC_13_5 = 130500;
 
 const int __MAC_13_6 = 130600;
 
-const int __MAC_13_7 = 130700;
-
 const int __MAC_14_0 = 140000;
 
 const int __MAC_14_1 = 140100;
@@ -22508,41 +23665,15 @@ const int __MAC_14_4 = 140400;
 
 const int __MAC_14_5 = 140500;
 
-const int __MAC_14_6 = 140600;
-
-const int __MAC_14_7 = 140700;
-
 const int __MAC_15_0 = 150000;
 
 const int __MAC_15_1 = 150100;
 
 const int __MAC_15_2 = 150200;
 
-const int __MAC_15_3 = 150300;
+const int __MAC_OS_X_VERSION_MAX_ALLOWED = 150200;
 
-const int __MAC_15_4 = 150400;
-
-const int __MAC_15_5 = 150500;
-
-const int __MAC_15_6 = 150600;
-
-const int __MAC_16_0 = 160000;
-
-const int __MAC_26_0 = 260000;
-
-const int __MAC_26_1 = 260100;
-
-const int __MAC_26_2 = 260200;
-
-const int __MAC_26_3 = 260300;
-
-const int __MAC_26_4 = 260400;
-
-const int __MAC_26_5 = 260500;
-
-const int __MAC_OS_X_VERSION_MAX_ALLOWED = 260500;
-
-const int __MAC_OS_X_VERSION_MIN_REQUIRED = 260000;
+const int __MAC_OS_X_VERSION_MIN_REQUIRED = 140000;
 
 const int __PTHREAD_ATTR_SIZE__ = 56;
 
@@ -22686,35 +23817,11 @@ const int __TVOS_17_4 = 170400;
 
 const int __TVOS_17_5 = 170500;
 
-const int __TVOS_17_6 = 170600;
-
 const int __TVOS_18_0 = 180000;
 
 const int __TVOS_18_1 = 180100;
 
 const int __TVOS_18_2 = 180200;
-
-const int __TVOS_18_3 = 180300;
-
-const int __TVOS_18_4 = 180400;
-
-const int __TVOS_18_5 = 180500;
-
-const int __TVOS_18_6 = 180600;
-
-const int __TVOS_19_0 = 190000;
-
-const int __TVOS_26_0 = 260000;
-
-const int __TVOS_26_1 = 260100;
-
-const int __TVOS_26_2 = 260200;
-
-const int __TVOS_26_3 = 260300;
-
-const int __TVOS_26_4 = 260400;
-
-const int __TVOS_26_5 = 260500;
 
 const int __TVOS_9_0 = 90000;
 
@@ -22728,35 +23835,11 @@ const int __VISIONOS_1_1 = 10100;
 
 const int __VISIONOS_1_2 = 10200;
 
-const int __VISIONOS_1_3 = 10300;
-
-const int __VISIONOS_26_0 = 260000;
-
-const int __VISIONOS_26_1 = 260100;
-
-const int __VISIONOS_26_2 = 260200;
-
-const int __VISIONOS_26_3 = 260300;
-
-const int __VISIONOS_26_4 = 260400;
-
-const int __VISIONOS_26_5 = 260500;
-
 const int __VISIONOS_2_0 = 20000;
 
 const int __VISIONOS_2_1 = 20100;
 
 const int __VISIONOS_2_2 = 20200;
-
-const int __VISIONOS_2_3 = 20300;
-
-const int __VISIONOS_2_4 = 20400;
-
-const int __VISIONOS_2_5 = 20500;
-
-const int __VISIONOS_2_6 = 20600;
-
-const int __VISIONOS_3_0 = 30000;
 
 const int __WATCHOS_10_0 = 100000;
 
@@ -22770,39 +23853,13 @@ const int __WATCHOS_10_4 = 100400;
 
 const int __WATCHOS_10_5 = 100500;
 
-const int __WATCHOS_10_6 = 100600;
-
-const int __WATCHOS_10_7 = 100700;
-
 const int __WATCHOS_11_0 = 110000;
 
 const int __WATCHOS_11_1 = 110100;
 
 const int __WATCHOS_11_2 = 110200;
 
-const int __WATCHOS_11_3 = 110300;
-
-const int __WATCHOS_11_4 = 110400;
-
-const int __WATCHOS_11_5 = 110500;
-
-const int __WATCHOS_11_6 = 110600;
-
-const int __WATCHOS_12_0 = 120000;
-
 const int __WATCHOS_1_0 = 10000;
-
-const int __WATCHOS_26_0 = 260000;
-
-const int __WATCHOS_26_1 = 260100;
-
-const int __WATCHOS_26_2 = 260200;
-
-const int __WATCHOS_26_3 = 260300;
-
-const int __WATCHOS_26_4 = 260400;
-
-const int __WATCHOS_26_5 = 260500;
 
 const int __WATCHOS_2_0 = 20000;
 
@@ -22961,8 +24018,6 @@ typedef Dart__darwin_wctrans_t = int;
 typedef __darwin_wctype_t = __uint32_t;
 typedef __darwin_wint_t = ffi.Int;
 typedef Dart__darwin_wint_t = int;
-
-const int __has_bounds_safety_attributes = 0;
 
 const int __has_ptrcheck = 0;
 
@@ -23235,17 +24290,22 @@ final class ggml_backend_dev_caps extends ffi.Struct {
   @ffi.Bool()
   external bool events;
 
+  @ffi.Bool()
+  external bool mmap_support;
+
   static ffi.Pointer<ggml_backend_dev_caps> $allocate(
     ffi.Allocator $allocator, {
     required bool async,
     required bool host_buffer,
     required bool buffer_from_host_ptr,
     required bool events,
+    required bool mmap_support,
   }) => $allocator<ggml_backend_dev_caps>()
     ..ref.async = async
     ..ref.host_buffer = host_buffer
     ..ref.buffer_from_host_ptr = buffer_from_host_ptr
-    ..ref.events = events;
+    ..ref.events = events
+    ..ref.mmap_support = mmap_support;
 }
 
 typedef ggml_backend_dev_get_extra_bufts_t =
@@ -23424,6 +24484,24 @@ typedef ggml_backend_reg_t = ffi.Pointer<ggml_backend_reg>;
 
 final class ggml_backend_sched extends ffi.Opaque {}
 
+typedef ggml_backend_sched_copy_callback =
+    ffi.Pointer<ffi.NativeFunction<ggml_backend_sched_copy_callbackFunction>>;
+typedef ggml_backend_sched_copy_callbackFunction =
+    ffi.Bool Function(
+      ggml_backend_t backend,
+      ffi.Pointer<ggml_tensor> src,
+      ffi.Pointer<ggml_tensor> dst,
+      ffi.Pointer<ggml_cgraph> graph,
+      ffi.Pointer<ffi.Void> user_data,
+    );
+typedef Dartggml_backend_sched_copy_callbackFunction =
+    bool Function(
+      ggml_backend_t backend,
+      ffi.Pointer<ggml_tensor> src,
+      ffi.Pointer<ggml_tensor> dst,
+      ffi.Pointer<ggml_cgraph> graph,
+      ffi.Pointer<ffi.Void> user_data,
+    );
 typedef ggml_backend_sched_eval_callback =
     ffi.Pointer<ffi.NativeFunction<ggml_backend_sched_eval_callbackFunction>>;
 typedef ggml_backend_sched_eval_callbackFunction =
@@ -23436,6 +24514,26 @@ typedef Dartggml_backend_sched_eval_callbackFunction =
     bool Function(
       ffi.Pointer<ggml_tensor> t,
       bool ask,
+      ffi.Pointer<ffi.Void> user_data,
+    );
+typedef ggml_backend_sched_realloc_callback =
+    ffi.Pointer<
+      ffi.NativeFunction<ggml_backend_sched_realloc_callbackFunction>
+    >;
+typedef ggml_backend_sched_realloc_callbackFunction =
+    ffi.Void Function(
+      ggml_backend_sched_t sched,
+      ffi.Pointer<ggml_cgraph> graph,
+      ffi.Bool backend_ids_changed,
+      ffi.Bool graph_size_changed,
+      ffi.Pointer<ffi.Void> user_data,
+    );
+typedef Dartggml_backend_sched_realloc_callbackFunction =
+    void Function(
+      ggml_backend_sched_t sched,
+      ffi.Pointer<ggml_cgraph> graph,
+      bool backend_ids_changed,
+      bool graph_size_changed,
       ffi.Pointer<ffi.Void> user_data,
     );
 typedef ggml_backend_sched_t = ffi.Pointer<ggml_backend_sched>;
@@ -23690,7 +24788,8 @@ enum ggml_glu_op {
   GGML_GLU_OP_SWIGLU_OAI(3),
   GGML_GLU_OP_GEGLU_ERF(4),
   GGML_GLU_OP_GEGLU_QUICK(5),
-  GGML_GLU_OP_COUNT(6);
+  GGML_GLU_OP_SWIGLU_CLAMP(6),
+  GGML_GLU_OP_COUNT(7);
 
   final int value;
   const ggml_glu_op(this.value);
@@ -23702,7 +24801,8 @@ enum ggml_glu_op {
     3 => GGML_GLU_OP_SWIGLU_OAI,
     4 => GGML_GLU_OP_GEGLU_ERF,
     5 => GGML_GLU_OP_GEGLU_QUICK,
-    6 => GGML_GLU_OP_COUNT,
+    6 => GGML_GLU_OP_SWIGLU_CLAMP,
+    7 => GGML_GLU_OP_COUNT,
     _ => throw ArgumentError('Unknown value for ggml_glu_op: $value'),
   };
 }
@@ -23898,17 +24998,18 @@ enum ggml_op {
   GGML_OP_DSV4_HC_COMB(88),
   GGML_OP_DSV4_HC_PRE(89),
   GGML_OP_DSV4_HC_POST(90),
-  GGML_OP_UNARY(91),
-  GGML_OP_MAP_CUSTOM1(92),
-  GGML_OP_MAP_CUSTOM2(93),
-  GGML_OP_MAP_CUSTOM3(94),
-  GGML_OP_CUSTOM(95),
-  GGML_OP_CROSS_ENTROPY_LOSS(96),
-  GGML_OP_CROSS_ENTROPY_LOSS_BACK(97),
-  GGML_OP_OPT_STEP_ADAMW(98),
-  GGML_OP_OPT_STEP_SGD(99),
-  GGML_OP_GLU(100),
-  GGML_OP_COUNT(101);
+  GGML_OP_TOP_K_MASK(91),
+  GGML_OP_UNARY(92),
+  GGML_OP_MAP_CUSTOM1(93),
+  GGML_OP_MAP_CUSTOM2(94),
+  GGML_OP_MAP_CUSTOM3(95),
+  GGML_OP_CUSTOM(96),
+  GGML_OP_CROSS_ENTROPY_LOSS(97),
+  GGML_OP_CROSS_ENTROPY_LOSS_BACK(98),
+  GGML_OP_OPT_STEP_ADAMW(99),
+  GGML_OP_OPT_STEP_SGD(100),
+  GGML_OP_GLU(101),
+  GGML_OP_COUNT(102);
 
   final int value;
   const ggml_op(this.value);
@@ -24005,17 +25106,18 @@ enum ggml_op {
     88 => GGML_OP_DSV4_HC_COMB,
     89 => GGML_OP_DSV4_HC_PRE,
     90 => GGML_OP_DSV4_HC_POST,
-    91 => GGML_OP_UNARY,
-    92 => GGML_OP_MAP_CUSTOM1,
-    93 => GGML_OP_MAP_CUSTOM2,
-    94 => GGML_OP_MAP_CUSTOM3,
-    95 => GGML_OP_CUSTOM,
-    96 => GGML_OP_CROSS_ENTROPY_LOSS,
-    97 => GGML_OP_CROSS_ENTROPY_LOSS_BACK,
-    98 => GGML_OP_OPT_STEP_ADAMW,
-    99 => GGML_OP_OPT_STEP_SGD,
-    100 => GGML_OP_GLU,
-    101 => GGML_OP_COUNT,
+    91 => GGML_OP_TOP_K_MASK,
+    92 => GGML_OP_UNARY,
+    93 => GGML_OP_MAP_CUSTOM1,
+    94 => GGML_OP_MAP_CUSTOM2,
+    95 => GGML_OP_MAP_CUSTOM3,
+    96 => GGML_OP_CUSTOM,
+    97 => GGML_OP_CROSS_ENTROPY_LOSS,
+    98 => GGML_OP_CROSS_ENTROPY_LOSS_BACK,
+    99 => GGML_OP_OPT_STEP_ADAMW,
+    100 => GGML_OP_OPT_STEP_SGD,
+    101 => GGML_OP_GLU,
+    102 => GGML_OP_COUNT,
     _ => throw ArgumentError('Unknown value for ggml_op: $value'),
   };
 }
@@ -24209,17 +25311,34 @@ final class ggml_opt_result extends ffi.Opaque {}
 typedef ggml_opt_result_t = ffi.Pointer<ggml_opt_result>;
 
 enum ggml_prec {
-  GGML_PREC_DEFAULT(0),
-  GGML_PREC_F32(10);
+  GGML_PREC_UNDEFINED(0),
+  GGML_PREC_F32(10),
+  GGML_PREC_BF16(15),
+  GGML_PREC_F16(20),
+  GGML_PREC_Q8(30),
+  GGML_PREC_Q4(40);
+
+  static const GGML_PREC_DEFAULT = GGML_PREC_UNDEFINED;
 
   final int value;
   const ggml_prec(this.value);
 
   static ggml_prec fromValue(int value) => switch (value) {
-    0 => GGML_PREC_DEFAULT,
+    0 => GGML_PREC_UNDEFINED,
     10 => GGML_PREC_F32,
+    15 => GGML_PREC_BF16,
+    20 => GGML_PREC_F16,
+    30 => GGML_PREC_Q8,
+    40 => GGML_PREC_Q4,
     _ => throw ArgumentError('Unknown value for ggml_prec: $value'),
   };
+
+  @override
+  String toString() {
+    if (this == GGML_PREC_UNDEFINED)
+      return "ggml_prec.GGML_PREC_UNDEFINED, ggml_prec.GGML_PREC_DEFAULT";
+    return super.toString();
+  }
 }
 
 enum ggml_scale_flag {
@@ -24823,6 +25942,8 @@ final class llama_batch extends ffi.Struct {
     ..ref.logits = logits;
 }
 
+final class llama_batch_ext extends ffi.Opaque {}
+
 final class llama_chat_message extends ffi.Struct {
   external ffi.Pointer<ffi.Char> role;
 
@@ -24857,6 +25978,9 @@ final class llama_context_params extends ffi.Struct {
 
   @ffi.Uint32()
   external int n_outputs_max;
+
+  @ffi.Uint32()
+  external int n_outputs_max_per_seq;
 
   @ffi.Int32()
   external int n_threads;
@@ -24942,6 +26066,9 @@ final class llama_context_params extends ffi.Struct {
   ggml_type get type_v => ggml_type.fromValue(type_vAsInt);
   set type_v(ggml_type value) => type_vAsInt = value.value;
 
+  @ffi.Size()
+  external int moe_cache_size;
+
   external ggml_abort_callback abort_callback;
 
   external ffi.Pointer<ffi.Void> abort_callback_data;
@@ -24979,6 +26106,7 @@ final class llama_context_params extends ffi.Struct {
     required int n_seq_max,
     required int n_rs_seq,
     required int n_outputs_max,
+    required int n_outputs_max_per_seq,
     required int n_threads,
     required int n_threads_batch,
     required llama_context_type ctx_type,
@@ -24998,6 +26126,7 @@ final class llama_context_params extends ffi.Struct {
     required ffi.Pointer<ffi.Void> cb_eval_user_data,
     required ggml_type type_k,
     required ggml_type type_v,
+    required int moe_cache_size,
     required ggml_abort_callback abort_callback,
     required ffi.Pointer<ffi.Void> abort_callback_data,
     required bool embeddings,
@@ -25016,6 +26145,7 @@ final class llama_context_params extends ffi.Struct {
     ..ref.n_seq_max = n_seq_max
     ..ref.n_rs_seq = n_rs_seq
     ..ref.n_outputs_max = n_outputs_max
+    ..ref.n_outputs_max_per_seq = n_outputs_max_per_seq
     ..ref.n_threads = n_threads
     ..ref.n_threads_batch = n_threads_batch
     ..ref.ctx_type = ctx_type
@@ -25035,6 +26165,7 @@ final class llama_context_params extends ffi.Struct {
     ..ref.cb_eval_user_data = cb_eval_user_data
     ..ref.type_k = type_k
     ..ref.type_v = type_v
+    ..ref.moe_cache_size = moe_cache_size
     ..ref.abort_callback = abort_callback
     ..ref.abort_callback_data = abort_callback_data
     ..ref.embeddings = embeddings
@@ -25060,6 +26191,26 @@ enum llama_context_type {
     1 => LLAMA_CONTEXT_TYPE_MTP,
     _ => throw ArgumentError('Unknown value for llama_context_type: $value'),
   };
+}
+
+final class llama_embd extends ffi.Struct {
+  external ffi.Pointer<ffi.Float> data;
+
+  @ffi.Size()
+  external int n_rows;
+
+  @ffi.Size()
+  external int n_embd;
+
+  static ffi.Pointer<llama_embd> $allocate(
+    ffi.Allocator $allocator, {
+    required ffi.Pointer<ffi.Float> data,
+    required int n_rows,
+    required int n_embd,
+  }) => $allocator<llama_embd>()
+    ..ref.data = data
+    ..ref.n_rows = n_rows
+    ..ref.n_embd = n_embd;
 }
 
 enum llama_flash_attn_type {
@@ -25162,7 +26313,24 @@ enum llama_ftype {
   };
 }
 
+enum llama_lazy_mode {
+  LLAMA_LAZY_MODE_OFF(0),
+  LLAMA_LAZY_MODE_AUTO(1),
+  LLAMA_LAZY_MODE_ON(2);
+
+  final int value;
+  const llama_lazy_mode(this.value);
+
+  static llama_lazy_mode fromValue(int value) => switch (value) {
+    0 => LLAMA_LAZY_MODE_OFF,
+    1 => LLAMA_LAZY_MODE_AUTO,
+    2 => LLAMA_LAZY_MODE_ON,
+    _ => throw ArgumentError('Unknown value for llama_lazy_mode: $value'),
+  };
+}
+
 enum llama_load_mode {
+  LLAMA_LOAD_MODE_AUTO(-1),
   LLAMA_LOAD_MODE_NONE(0),
   LLAMA_LOAD_MODE_MMAP(1),
   LLAMA_LOAD_MODE_MLOCK(2),
@@ -25173,6 +26341,7 @@ enum llama_load_mode {
   const llama_load_mode(this.value);
 
   static llama_load_mode fromValue(int value) => switch (value) {
+    -1 => LLAMA_LOAD_MODE_AUTO,
     0 => LLAMA_LOAD_MODE_NONE,
     1 => LLAMA_LOAD_MODE_MMAP,
     2 => LLAMA_LOAD_MODE_MLOCK,
@@ -25306,11 +26475,17 @@ final class llama_model_params extends ffi.Struct {
       llama_split_mode.fromValue(split_modeAsInt);
   set split_mode(llama_split_mode value) => split_modeAsInt = value.value;
 
-  @ffi.UnsignedInt()
+  @ffi.Int()
   external int load_modeAsInt;
 
   llama_load_mode get load_mode => llama_load_mode.fromValue(load_modeAsInt);
   set load_mode(llama_load_mode value) => load_modeAsInt = value.value;
+
+  @ffi.UnsignedInt()
+  external int lazy_modeAsInt;
+
+  llama_lazy_mode get lazy_mode => llama_lazy_mode.fromValue(lazy_modeAsInt);
+  set lazy_mode(llama_lazy_mode value) => lazy_modeAsInt = value.value;
 
   @ffi.Int32()
   external int main_gpu;
@@ -25338,6 +26513,9 @@ final class llama_model_params extends ffi.Struct {
   @ffi.Bool()
   external bool no_alloc;
 
+  @ffi.Bool()
+  external bool load_mtp;
+
   static ffi.Pointer<llama_model_params> $allocate(
     ffi.Allocator $allocator, {
     required ffi.Pointer<ggml_backend_dev_t> devices,
@@ -25346,6 +26524,7 @@ final class llama_model_params extends ffi.Struct {
     required int n_gpu_layers,
     required llama_split_mode split_mode,
     required llama_load_mode load_mode,
+    required llama_lazy_mode lazy_mode,
     required int main_gpu,
     required ffi.Pointer<ffi.Float> tensor_split,
     required llama_progress_callback progress_callback,
@@ -25356,12 +26535,14 @@ final class llama_model_params extends ffi.Struct {
     required bool use_extra_bufts,
     required bool no_host,
     required bool no_alloc,
+    required bool load_mtp,
   }) => $allocator<llama_model_params>()
     ..ref.devices = devices
     ..ref.tensor_buft_overrides = tensor_buft_overrides
     ..ref.n_gpu_layers = n_gpu_layers
     ..ref.split_mode = split_mode
     ..ref.load_mode = load_mode
+    ..ref.lazy_mode = lazy_mode
     ..ref.main_gpu = main_gpu
     ..ref.tensor_split = tensor_split
     ..ref.progress_callback = progress_callback
@@ -25371,7 +26552,8 @@ final class llama_model_params extends ffi.Struct {
     ..ref.check_tensors = check_tensors
     ..ref.use_extra_bufts = use_extra_bufts
     ..ref.no_host = no_host
-    ..ref.no_alloc = no_alloc;
+    ..ref.no_alloc = no_alloc
+    ..ref.load_mtp = load_mtp;
 }
 
 final class llama_model_quantize_params extends ffi.Struct {
@@ -25426,6 +26608,9 @@ final class llama_model_quantize_params extends ffi.Struct {
 
   external ffi.Pointer<ffi.Int32> prune_layers;
 
+  @ffi.Size()
+  external int max_buf_size;
+
   static ffi.Pointer<llama_model_quantize_params> $allocate(
     ffi.Allocator $allocator, {
     required int nthread,
@@ -25442,6 +26627,7 @@ final class llama_model_quantize_params extends ffi.Struct {
     required ffi.Pointer<llama_model_kv_override> kv_overrides,
     required ffi.Pointer<llama_model_tensor_override> tt_overrides,
     required ffi.Pointer<ffi.Int32> prune_layers,
+    required int max_buf_size,
   }) => $allocator<llama_model_quantize_params>()
     ..ref.nthread = nthread
     ..ref.ftype = ftype
@@ -25456,7 +26642,8 @@ final class llama_model_quantize_params extends ffi.Struct {
     ..ref.imatrix = imatrix
     ..ref.kv_overrides = kv_overrides
     ..ref.tt_overrides = tt_overrides
-    ..ref.prune_layers = prune_layers;
+    ..ref.prune_layers = prune_layers
+    ..ref.max_buf_size = max_buf_size;
 }
 
 typedef llama_model_set_tensor_data_t =
@@ -25576,6 +26763,12 @@ final class llama_perf_context_data extends ffi.Struct {
   @ffi.Int32()
   external int n_reused;
 
+  @ffi.Int32()
+  external int n_reallocs_same;
+
+  @ffi.Int32()
+  external int n_reallocs_diff;
+
   static ffi.Pointer<llama_perf_context_data> $allocate(
     ffi.Allocator $allocator, {
     required double t_start_ms,
@@ -25585,6 +26778,8 @@ final class llama_perf_context_data extends ffi.Struct {
     required int n_p_eval,
     required int n_eval,
     required int n_reused,
+    required int n_reallocs_same,
+    required int n_reallocs_diff,
   }) => $allocator<llama_perf_context_data>()
     ..ref.t_start_ms = t_start_ms
     ..ref.t_load_ms = t_load_ms
@@ -25592,7 +26787,9 @@ final class llama_perf_context_data extends ffi.Struct {
     ..ref.t_eval_ms = t_eval_ms
     ..ref.n_p_eval = n_p_eval
     ..ref.n_eval = n_eval
-    ..ref.n_reused = n_reused;
+    ..ref.n_reused = n_reused
+    ..ref.n_reallocs_same = n_reallocs_same
+    ..ref.n_reallocs_diff = n_reallocs_diff;
 }
 
 final class llama_perf_sampler_data extends ffi.Struct {
@@ -25635,6 +26832,21 @@ enum llama_pooling_type {
 
 typedef llama_pos = ffi.Int32;
 typedef Dartllama_pos = int;
+
+enum llama_process_type {
+  LLAMA_PROCESS_TYPE_ENCODE(0),
+  LLAMA_PROCESS_TYPE_DECODE(1);
+
+  final int value;
+  const llama_process_type(this.value);
+
+  static llama_process_type fromValue(int value) => switch (value) {
+    0 => LLAMA_PROCESS_TYPE_ENCODE,
+    1 => LLAMA_PROCESS_TYPE_DECODE,
+    _ => throw ArgumentError('Unknown value for llama_process_type: $value'),
+  };
+}
+
 typedef llama_progress_callback =
     ffi.Pointer<ffi.NativeFunction<llama_progress_callbackFunction>>;
 typedef llama_progress_callbackFunction =
@@ -25791,6 +27003,7 @@ final class llama_sampler_i extends ffi.Struct {
       ffi.Bool Function(
         ffi.Pointer<llama_sampler> smpl,
         ggml_backend_buffer_type_t buft,
+        ffi.Uint32 n_outputs_max_per_seq,
       )
     >
   >
@@ -25824,6 +27037,21 @@ final class llama_sampler_i extends ffi.Struct {
     ffi.NativeFunction<ffi.Void Function(ffi.Pointer<llama_sampler> smpl)>
   >
   backend_set_input;
+
+  external ffi.Pointer<
+    ffi.NativeFunction<ffi.Void Function(ffi.Pointer<llama_sampler> smpl)>
+  >
+  backend_reset;
+
+  external ffi.Pointer<
+    ffi.NativeFunction<
+      ffi.Void Function(
+        ffi.Pointer<llama_sampler> src,
+        ffi.Pointer<llama_sampler> dst,
+      )
+    >
+  >
+  copy_state;
 
   static ffi.Pointer<llama_sampler_i> $allocate(
     ffi.Allocator $allocator, {
@@ -25867,6 +27095,7 @@ final class llama_sampler_i extends ffi.Struct {
         ffi.Bool Function(
           ffi.Pointer<llama_sampler> smpl,
           ggml_backend_buffer_type_t buft,
+          ffi.Uint32 n_outputs_max_per_seq,
         )
       >
     >
@@ -25897,6 +27126,19 @@ final class llama_sampler_i extends ffi.Struct {
       ffi.NativeFunction<ffi.Void Function(ffi.Pointer<llama_sampler> smpl)>
     >
     backend_set_input,
+    required ffi.Pointer<
+      ffi.NativeFunction<ffi.Void Function(ffi.Pointer<llama_sampler> smpl)>
+    >
+    backend_reset,
+    required ffi.Pointer<
+      ffi.NativeFunction<
+        ffi.Void Function(
+          ffi.Pointer<llama_sampler> src,
+          ffi.Pointer<llama_sampler> dst,
+        )
+      >
+    >
+    copy_state,
   }) => $allocator<llama_sampler_i>()
     ..ref.name = name
     ..ref.accept = accept
@@ -25907,7 +27149,9 @@ final class llama_sampler_i extends ffi.Struct {
     ..ref.backend_init = backend_init
     ..ref.backend_accept = backend_accept
     ..ref.backend_apply = backend_apply
-    ..ref.backend_set_input = backend_set_input;
+    ..ref.backend_set_input = backend_set_input
+    ..ref.backend_reset = backend_reset
+    ..ref.copy_state = copy_state;
 }
 
 final class llama_sampler_seq_config extends ffi.Struct {
@@ -26062,7 +27306,9 @@ enum llama_vocab_type {
   LLAMA_VOCAB_TYPE_WPM(3),
   LLAMA_VOCAB_TYPE_UGM(4),
   LLAMA_VOCAB_TYPE_RWKV(5),
-  LLAMA_VOCAB_TYPE_PLAMO2(6);
+  LLAMA_VOCAB_TYPE_PLAMO2(6),
+  LLAMA_VOCAB_TYPE_TEST(7),
+  LLAMA_VOCAB_TYPE_PLAMO3(8);
 
   final int value;
   const llama_vocab_type(this.value);
@@ -26075,8 +27321,22 @@ enum llama_vocab_type {
     4 => LLAMA_VOCAB_TYPE_UGM,
     5 => LLAMA_VOCAB_TYPE_RWKV,
     6 => LLAMA_VOCAB_TYPE_PLAMO2,
+    7 => LLAMA_VOCAB_TYPE_TEST,
+    8 => LLAMA_VOCAB_TYPE_PLAMO3,
     _ => throw ArgumentError('Unknown value for llama_vocab_type: $value'),
   };
+}
+
+final class mtmd_audio_stream extends ffi.Opaque {}
+
+final class mtmd_audio_stream_params extends ffi.Struct {
+  @ffi.Int32()
+  external int step_ms;
+
+  static ffi.Pointer<mtmd_audio_stream_params> $allocate(
+    ffi.Allocator $allocator, {
+    required int step_ms,
+  }) => $allocator<mtmd_audio_stream_params>()..ref.step_ms = step_ms;
 }
 
 final class mtmd_batch extends ffi.Opaque {}
@@ -26107,13 +27367,18 @@ final class mtmd_caps extends ffi.Struct {
   @ffi.Bool()
   external bool inp_audio;
 
+  @ffi.Bool()
+  external bool gen_audio;
+
   static ffi.Pointer<mtmd_caps> $allocate(
     ffi.Allocator $allocator, {
     required bool inp_vision,
     required bool inp_audio,
+    required bool gen_audio,
   }) => $allocator<mtmd_caps>()
     ..ref.inp_vision = inp_vision
-    ..ref.inp_audio = inp_audio;
+    ..ref.inp_audio = inp_audio
+    ..ref.gen_audio = gen_audio;
 }
 
 final class mtmd_context extends ffi.Opaque {}
@@ -26121,6 +27386,8 @@ final class mtmd_context extends ffi.Opaque {}
 final class mtmd_context_params extends ffi.Struct {
   @ffi.Bool()
   external bool use_gpu;
+
+  external ggml_backend_dev_t device;
 
   @ffi.Bool()
   external bool print_timings;
@@ -26163,6 +27430,7 @@ final class mtmd_context_params extends ffi.Struct {
   static ffi.Pointer<mtmd_context_params> $allocate(
     ffi.Allocator $allocator, {
     required bool use_gpu,
+    required ggml_backend_dev_t device,
     required bool print_timings,
     required int n_threads,
     required ffi.Pointer<ffi.Char> image_marker,
@@ -26178,6 +27446,7 @@ final class mtmd_context_params extends ffi.Struct {
     required ffi.Pointer<ffi.Void> progress_callback_user_data,
   }) => $allocator<mtmd_context_params>()
     ..ref.use_gpu = use_gpu
+    ..ref.device = device
     ..ref.print_timings = print_timings
     ..ref.n_threads = n_threads
     ..ref.image_marker = image_marker
@@ -26219,6 +27488,170 @@ final class mtmd_decoder_pos extends ffi.Struct {
     ..ref.z = z;
 }
 
+final class mtmd_gen_audio_info extends ffi.Struct {
+  @ffi.UnsignedInt()
+  external int typeAsInt;
+
+  mtmd_gen_audio_type get type => mtmd_gen_audio_type.fromValue(typeAsInt);
+  set type(mtmd_gen_audio_type value) => typeAsInt = value.value;
+
+  @ffi.Int32()
+  external int sample_rate;
+
+  external ffi.Pointer<ffi.Char> model_variant;
+
+  static ffi.Pointer<mtmd_gen_audio_info> $allocate(
+    ffi.Allocator $allocator, {
+    required mtmd_gen_audio_type type,
+    required int sample_rate,
+    required ffi.Pointer<ffi.Char> model_variant,
+  }) => $allocator<mtmd_gen_audio_info>()
+    ..ref.type = type
+    ..ref.sample_rate = sample_rate
+    ..ref.model_variant = model_variant;
+}
+
+/// //////////////////////////////////////
+enum mtmd_gen_audio_type {
+  MTMD_GEN_AUDIO_TYPE_NONE(0),
+  MTMD_GEN_AUDIO_TYPE_QWEN3TTS(1),
+  MTMD_GEN_AUDIO_TYPE_POCKETTTS(2);
+
+  final int value;
+  const mtmd_gen_audio_type(this.value);
+
+  static mtmd_gen_audio_type fromValue(int value) => switch (value) {
+    0 => MTMD_GEN_AUDIO_TYPE_NONE,
+    1 => MTMD_GEN_AUDIO_TYPE_QWEN3TTS,
+    2 => MTMD_GEN_AUDIO_TYPE_POCKETTTS,
+    _ => throw ArgumentError('Unknown value for mtmd_gen_audio_type: $value'),
+  };
+}
+
+final class mtmd_gen_inp extends ffi.Struct {
+  @ffi.UnsignedInt()
+  external int typeAsInt;
+
+  mtmd_gen_process_type get type => mtmd_gen_process_type.fromValue(typeAsInt);
+  set type(mtmd_gen_process_type value) => typeAsInt = value.value;
+
+  @ffi.Int32()
+  external int code0;
+
+  external ffi.Pointer<ffi.Float> embd;
+
+  @ffi.Int32()
+  external int top_k;
+
+  @ffi.Float()
+  external double top_p;
+
+  @ffi.Float()
+  external double temp;
+
+  external ffi.Pointer<ffi.Int32> codes;
+
+  @ffi.Size()
+  external int n_codes;
+
+  external ffi.Pointer<ffi.Float> feats;
+
+  @ffi.Size()
+  external int n_feats;
+
+  static ffi.Pointer<mtmd_gen_inp> $allocate(
+    ffi.Allocator $allocator, {
+    required mtmd_gen_process_type type,
+    required int code0,
+    required ffi.Pointer<ffi.Float> embd,
+    required int top_k,
+    required double top_p,
+    required double temp,
+    required ffi.Pointer<ffi.Int32> codes,
+    required int n_codes,
+    required ffi.Pointer<ffi.Float> feats,
+    required int n_feats,
+  }) => $allocator<mtmd_gen_inp>()
+    ..ref.type = type
+    ..ref.code0 = code0
+    ..ref.embd = embd
+    ..ref.top_k = top_k
+    ..ref.top_p = top_p
+    ..ref.temp = temp
+    ..ref.codes = codes
+    ..ref.n_codes = n_codes
+    ..ref.feats = feats
+    ..ref.n_feats = n_feats;
+}
+
+final class mtmd_gen_out extends ffi.Struct {
+  external ffi.Pointer<ffi.Int32> codes;
+
+  @ffi.Size()
+  external int n_codes;
+
+  external ffi.Pointer<ffi.Float> feats;
+
+  @ffi.Size()
+  external int n_feats;
+
+  external ffi.Pointer<ffi.Float> embd;
+
+  @ffi.Bool()
+  external bool is_eos;
+
+  external ffi.Pointer<ffi.Float> audio;
+
+  @ffi.Size()
+  external int n_samples;
+
+  static ffi.Pointer<mtmd_gen_out> $allocate(
+    ffi.Allocator $allocator, {
+    required ffi.Pointer<ffi.Int32> codes,
+    required int n_codes,
+    required ffi.Pointer<ffi.Float> feats,
+    required int n_feats,
+    required ffi.Pointer<ffi.Float> embd,
+    required bool is_eos,
+    required ffi.Pointer<ffi.Float> audio,
+    required int n_samples,
+  }) => $allocator<mtmd_gen_out>()
+    ..ref.codes = codes
+    ..ref.n_codes = n_codes
+    ..ref.feats = feats
+    ..ref.n_feats = n_feats
+    ..ref.embd = embd
+    ..ref.is_eos = is_eos
+    ..ref.audio = audio
+    ..ref.n_samples = n_samples;
+}
+
+enum mtmd_gen_process_type {
+  MTMD_GEN_PROCESS_TYPE_GEN_CODE(0),
+  MTMD_GEN_PROCESS_TYPE_GEN_WAV(1);
+
+  final int value;
+  const mtmd_gen_process_type(this.value);
+
+  static mtmd_gen_process_type fromValue(int value) => switch (value) {
+    0 => MTMD_GEN_PROCESS_TYPE_GEN_CODE,
+    1 => MTMD_GEN_PROCESS_TYPE_GEN_WAV,
+    _ => throw ArgumentError('Unknown value for mtmd_gen_process_type: $value'),
+  };
+}
+
+final class mtmd_gen_state extends ffi.Opaque {}
+
+final class mtmd_gen_state_params extends ffi.Struct {
+  @ffi.Uint32()
+  external int seed;
+
+  static ffi.Pointer<mtmd_gen_state_params> $allocate(
+    ffi.Allocator $allocator, {
+    required int seed,
+  }) => $allocator<mtmd_gen_state_params>()..ref.seed = seed;
+}
+
 final class mtmd_helper_bitmap_wrapper extends ffi.Struct {
   external ffi.Pointer<mtmd_bitmap> bitmap;
 
@@ -26233,12 +27666,132 @@ final class mtmd_helper_bitmap_wrapper extends ffi.Struct {
     ..ref.video_ctx = video_ctx;
 }
 
+final class mtmd_helper_embd_batch extends ffi.Struct {
+  @ffi.Int32()
+  external int n_tokens;
+
+  external ffi.Pointer<ffi.Float> embd;
+
+  @ffi.Int32()
+  external int n_embd;
+
+  external ffi.Pointer<llama_pos> pos;
+
+  @ffi.Int32()
+  external int n_pos;
+
+  @llama_seq_id()
+  external int seq_id;
+
+  static ffi.Pointer<mtmd_helper_embd_batch> $allocate(
+    ffi.Allocator $allocator, {
+    required int n_tokens,
+    required ffi.Pointer<ffi.Float> embd,
+    required int n_embd,
+    required ffi.Pointer<llama_pos> pos,
+    required int n_pos,
+    required int seq_id,
+  }) => $allocator<mtmd_helper_embd_batch>()
+    ..ref.n_tokens = n_tokens
+    ..ref.embd = embd
+    ..ref.n_embd = n_embd
+    ..ref.pos = pos
+    ..ref.n_pos = n_pos
+    ..ref.seq_id = seq_id;
+}
+
+final class mtmd_helper_gen_audio extends ffi.Opaque {}
+
+final class mtmd_helper_gen_audio_inp extends ffi.Struct {
+  @ffi.Bool()
+  external bool stream;
+
+  @llama_seq_id()
+  external int seq_id;
+
+  external ffi.Pointer<ffi.Char> prompt;
+
+  @ffi.Size()
+  external int prompt_len;
+
+  external ffi.Pointer<mtmd_bitmap> speaker_ref;
+
+  external ffi.Pointer<ffi.Char> lang;
+
+  @ffi.Int32()
+  external int top_k;
+
+  @ffi.Float()
+  external double top_p;
+
+  @ffi.Uint32()
+  external int seed;
+
+  @ffi.UnsignedInt()
+  external int out_typeAsInt;
+
+  mtmd_helper_gen_audio_outtype get out_type =>
+      mtmd_helper_gen_audio_outtype.fromValue(out_typeAsInt);
+  set out_type(mtmd_helper_gen_audio_outtype value) =>
+      out_typeAsInt = value.value;
+
+  static ffi.Pointer<mtmd_helper_gen_audio_inp> $allocate(
+    ffi.Allocator $allocator, {
+    required bool stream,
+    required int seq_id,
+    required ffi.Pointer<ffi.Char> prompt,
+    required int prompt_len,
+    required ffi.Pointer<mtmd_bitmap> speaker_ref,
+    required ffi.Pointer<ffi.Char> lang,
+    required int top_k,
+    required double top_p,
+    required int seed,
+    required mtmd_helper_gen_audio_outtype out_type,
+  }) => $allocator<mtmd_helper_gen_audio_inp>()
+    ..ref.stream = stream
+    ..ref.seq_id = seq_id
+    ..ref.prompt = prompt
+    ..ref.prompt_len = prompt_len
+    ..ref.speaker_ref = speaker_ref
+    ..ref.lang = lang
+    ..ref.top_k = top_k
+    ..ref.top_p = top_p
+    ..ref.seed = seed
+    ..ref.out_type = out_type;
+}
+
+enum mtmd_helper_gen_audio_outtype {
+  MTMD_HELPER_GEN_AUDIO_OUTTYPE_PCM(0),
+  MTMD_HELPER_GEN_AUDIO_OUTTYPE_WAV(1);
+
+  final int value;
+  const mtmd_helper_gen_audio_outtype(this.value);
+
+  static mtmd_helper_gen_audio_outtype fromValue(int value) => switch (value) {
+    0 => MTMD_HELPER_GEN_AUDIO_OUTTYPE_PCM,
+    1 => MTMD_HELPER_GEN_AUDIO_OUTTYPE_WAV,
+    _ => throw ArgumentError(
+      'Unknown value for mtmd_helper_gen_audio_outtype: $value',
+    ),
+  };
+}
+
+final class mtmd_helper_init_opt extends ffi.Struct {
+  external mtmd_helper_video_init_params video_params;
+}
+
 typedef mtmd_helper_post_decode_callback =
     ffi.Pointer<ffi.NativeFunction<mtmd_helper_post_decode_callbackFunction>>;
 typedef mtmd_helper_post_decode_callbackFunction =
-    ffi.Int32 Function(llama_batch batch, ffi.Pointer<ffi.Void> user_data);
+    ffi.Int32 Function(
+      ffi.Pointer<mtmd_helper_embd_batch> batch,
+      ffi.Pointer<ffi.Void> user_data,
+    );
 typedef Dartmtmd_helper_post_decode_callbackFunction =
-    int Function(llama_batch batch, ffi.Pointer<ffi.Void> user_data);
+    int Function(
+      ffi.Pointer<mtmd_helper_embd_batch> batch,
+      ffi.Pointer<ffi.Void> user_data,
+    );
 
 final class mtmd_helper_video extends ffi.Opaque {}
 
@@ -26295,7 +27848,8 @@ final class mtmd_input_chunk extends ffi.Opaque {}
 enum mtmd_input_chunk_type {
   MTMD_INPUT_CHUNK_TYPE_TEXT(0),
   MTMD_INPUT_CHUNK_TYPE_IMAGE(1),
-  MTMD_INPUT_CHUNK_TYPE_AUDIO(2);
+  MTMD_INPUT_CHUNK_TYPE_AUDIO(2),
+  MTMD_INPUT_CHUNK_TYPE_COUNT(3);
 
   final int value;
   const mtmd_input_chunk_type(this.value);
@@ -26304,11 +27858,26 @@ enum mtmd_input_chunk_type {
     0 => MTMD_INPUT_CHUNK_TYPE_TEXT,
     1 => MTMD_INPUT_CHUNK_TYPE_IMAGE,
     2 => MTMD_INPUT_CHUNK_TYPE_AUDIO,
+    3 => MTMD_INPUT_CHUNK_TYPE_COUNT,
     _ => throw ArgumentError('Unknown value for mtmd_input_chunk_type: $value'),
   };
 }
 
 final class mtmd_input_chunks extends ffi.Opaque {}
+
+final class mtmd_input_part extends ffi.Struct {
+  external ffi.Pointer<mtmd_input_text> text;
+
+  external ffi.Pointer<mtmd_bitmap> bitmap;
+
+  static ffi.Pointer<mtmd_input_part> $allocate(
+    ffi.Allocator $allocator, {
+    required ffi.Pointer<mtmd_input_text> text,
+    required ffi.Pointer<mtmd_bitmap> bitmap,
+  }) => $allocator<mtmd_input_part>()
+    ..ref.text = text
+    ..ref.bitmap = bitmap;
+}
 
 final class mtmd_input_text extends ffi.Struct {
   external ffi.Pointer<ffi.Char> text;

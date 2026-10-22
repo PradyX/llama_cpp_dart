@@ -109,6 +109,7 @@ final class MultimodalContext implements Finalizable {
     final bitmaps = <Pointer<mtmd_bitmap>>[];
     final byteArenas = <Pointer<UnsignedChar>>[];
     final idArenas = <Pointer<Utf8>>[];
+    final initOpt = calloc<mtmd_helper_init_opt>();
     Pointer<Pointer<mtmd_bitmap>>? bitmapArray;
     Pointer<mtmd_input_chunks>? chunks;
     Pointer<mtmd_input_text>? textStruct;
@@ -127,6 +128,7 @@ final class MultimodalContext implements Finalizable {
               buf,
               m.bytes.length,
               false,
+              initOpt.ref,
             )
             .bitmap;
         if (bm == nullptr) {
@@ -189,6 +191,7 @@ final class MultimodalContext implements Finalizable {
       }
       return newNPast.value;
     } finally {
+      calloc.free(initOpt);
       if (newNPast != null) calloc.free(newNPast);
       if (textStruct != null) calloc.free(textStruct);
       if (promptPtr != null) calloc.free(promptPtr);

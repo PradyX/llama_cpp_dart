@@ -74,6 +74,7 @@ final class MtmdBitmap implements Finalizable {
     required String path,
   }) {
     final pathPtr = path.toNativeUtf8();
+    final opt = calloc<mtmd_helper_init_opt>();
     try {
       // placeholder=false: decode the real bitmap now (the video-aware helper
       // returns a wrapper carrying the bitmap and an optional video context;
@@ -82,6 +83,7 @@ final class MtmdBitmap implements Finalizable {
         context.pointer,
         pathPtr.cast<Char>(),
         false,
+        opt.ref,
       );
       final ptr = wrapper.bitmap;
       if (ptr == nullptr) {
@@ -89,6 +91,7 @@ final class MtmdBitmap implements Finalizable {
       }
       return MtmdBitmap._(ptr);
     } finally {
+      calloc.free(opt);
       calloc.free(pathPtr);
     }
   }
@@ -100,6 +103,7 @@ final class MtmdBitmap implements Finalizable {
     required Uint8List bytes,
   }) {
     final buf = calloc<UnsignedChar>(bytes.length);
+    final opt = calloc<mtmd_helper_init_opt>();
     try {
       buf.cast<Uint8>().asTypedList(bytes.length).setAll(0, bytes);
       final wrapper = LlamaLibrary.bindings.mtmd_helper_bitmap_init_from_buf(
@@ -107,6 +111,7 @@ final class MtmdBitmap implements Finalizable {
         buf,
         bytes.length,
         false,
+        opt.ref,
       );
       final ptr = wrapper.bitmap;
       if (ptr == nullptr) {
@@ -114,6 +119,7 @@ final class MtmdBitmap implements Finalizable {
       }
       return MtmdBitmap._(ptr);
     } finally {
+      calloc.free(opt);
       calloc.free(buf);
     }
   }

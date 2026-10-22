@@ -36,6 +36,7 @@ final class MtmdChunk {
       mtmd_input_chunk_type.MTMD_INPUT_CHUNK_TYPE_TEXT => MtmdChunkKind.text,
       mtmd_input_chunk_type.MTMD_INPUT_CHUNK_TYPE_IMAGE => MtmdChunkKind.image,
       mtmd_input_chunk_type.MTMD_INPUT_CHUNK_TYPE_AUDIO => MtmdChunkKind.audio,
+      _ => throw StateError('unknown mtmd input chunk type: ${v.name}'),
     };
   }
 
